@@ -1,0 +1,161 @@
+@reference "../lib/turtle-ui/style.css";
+
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap");
+
+* {
+  font-family: "Poppins", sans-serif;
+}
+
+/* Scrollbar CSS ============================================= */
+
+.panel-scrollbar::-webkit-scrollbar {
+  scrollbar-gutter: stable;
+  @apply size-1 bg-transparent transition-all duration-300;
+}
+
+.panel-scrollbar:hover::-webkit-scrollbar-thumb {
+  background-color: rgba(255,255,255,0.15);
+}
+
+.panel-scrollbar::-webkit-scrollbar-thumb {
+  @apply rounded-[20px] bg-transparent;
+}
+
+.panel-scrollbar::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(255,255,255,0.25);
+}
+
+/* Hide scrollbar for smoother mobile look */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Scrollbar CSS ============================================= */
+
+/* --------------------------------------------------------------- */
+
+/* Table CSS ===================================================================================================== */
+
+.table-Scrollbar::-webkit-scrollbar {
+  width: 100px;
+  background-color: transparent;
+  transition: all 0.3s ease;
+}
+
+.table-Scrollbar::-webkit-scrollbar-thumb {
+  background-color: #d1d5db;
+  border-radius: 9999px;
+  scrollbar-gutter: stable;
+}
+
+.table-Scrollbar::-webkit-scrollbar-thumb:hover {
+  background-color: #9ca3af;
+  border: 1px solid #e5e7eb;
+  border-radius: 20px;
+  cursor: pointer;
+}
+
+.table-Scrollbar::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+/* Firefox Support */
+.table-Scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: #d1d5db transparent;
+}
+
+
+/* .main-table tbody tr:nth-child(odd) {
+  @apply bg-white;
+}
+
+.main-table tbody tr:nth-child(even) {
+  @apply bg-gray-50;
+} */
+
+.main-table .clickable-row:hover {
+  @apply bg-gray-50;
+}
+
+/* .main-table tbody tr:nth-child(even) .fixed-td {
+  @apply bg-gray-50;
+}
+
+.main-table tbody tr:nth-child(odd) .fixed-td {
+  @apply bg-white;
+} */
+
+.main-table .clickable-row:hover .fixed-td {
+  @apply bg-gray-50 duration-300;
+}
+
+.main-table tbody tr .selected-tr {
+  @apply bg-gray-200;
+}
+
+
+
+/* Table CSS ==================================================================
+
+
+/* Layout CSS ========================== */
+
+.dashboard-container {
+  box-shadow: inset 1px 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+/* Layout CSS ========================== */
+
+
+
+
+/* Empty Block CSS ========================================================================================================== */
+
+.empty-block-xs p {
+  @apply !text-xs;
+}
+
+.empty-block-xs p:nth-child(2) {
+  @apply !text-[10px];
+}
+
+.empty-block-xs .emtpy-block-text-container {
+  @apply !gap-1.5;
+}
+.empty-block-xs button {
+  @apply !text-xs !h-7;
+}
+
+.empty-block-lg p {
+  @apply !text-lg;
+}
+
+.empty-block-lg p:nth-child(2) {
+  @apply !text-sm;
+}
+
+.empty-block-lg .emtpy-block-text-container {
+  @apply !gap-1.5;
+}
+.empty-block-lg button {
+  @apply !text-sm h-10;
+}
+
+/* Empty Block CSS ========================================================================================================== */
+
+
+/* Custom Tab CSS */
+
+.stud-rep-header .tui-tab .tui-tab-item{
+  @apply border-b-transparent;
+}
+
+.stud-rep-header .tui-tab .tui-tab-item-active{
+  @apply border-b-brand-500;
+}

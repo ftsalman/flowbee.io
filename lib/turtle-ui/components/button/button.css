@@ -1,0 +1,55 @@
+@reference "tailwindcss";
+@reference "../../style.css";
+
+@layer components {
+  /* Style Variants */
+
+  .tui-btn {
+    @apply outline-0 flex items-center justify-center gap-2 rounded-xl text-sm font-bold transition-all duration-200 cursor-pointer disabled:cursor-not-allowed whitespace-nowrap;
+  }
+
+  .tui-btn-primary {
+    @apply text-black bg-[#FFD400] border-2 border-black hover:bg-[#F2C900] active:translate-y-[2px] active:translate-x-[2px] active:shadow-none shadow-[4px_4px_0px_0px_#FFD400] disabled:bg-gray-200 disabled:text-gray-400 disabled:border-gray-400 disabled:shadow-none;
+  }
+
+  .tui-btn-secondary {
+    @apply text-black bg-white border-2 border-black hover:bg-gray-50 active:translate-y-[2px] active:translate-x-[2px] active:shadow-none shadow-[4px_4px_0px_0px_#000] disabled:bg-gray-200 disabled:text-gray-400 disabled:border-gray-400;
+  }
+
+  .tui-btn-tertiary {
+    @apply bg-transparent text-brand-500 focus:ring-[3px] focus:ring-brand-100 focus:border-brand-600 hover:bg-gray-50;
+  }
+
+  .tui-btn-accent-gradient {
+    @apply text-black bg-gradient-to-r from-[#FFC931] to-[#C39207]/80 hover:opacity-90 focus:ring-[3px] focus:ring-brand-primary-200 focus:border-brand-primary-600 disabled:bg-gray-200 disabled:text-gray-400;
+  }
+
+  .tui-btn-success {
+    @apply text-white bg-green-500 hover:opacity-90 focus:ring-[3px] focus:ring-green-200 focus:border-green-600 disabled:bg-gray-200 disabled:text-gray-400;
+  }
+
+  .tui-btn-danger {
+    @apply text-white bg-red-500 hover:opacity-90 focus:ring-[3px] focus:ring-red-200 focus:border-red-600 disabled:bg-gray-200 disabled:text-gray-400;
+  }
+
+  /* Size Variants */
+  .tui-btn-xs {
+    @apply h-[24px] px-4 py-2.5 text-xs;
+  }
+
+  .tui-btn-sm {
+    @apply h-[32px] px-4 py-[6px] text-xs;
+  }
+
+  .tui-btn-md {
+    @apply h-[40px] px-4 py-2.5 text-sm;
+  }
+
+  .tui-btn-lg {
+    @apply h-[56px] px-8 py-4 text-base rounded-full;
+  }
+
+  .tui-btn-xl {
+    @apply h-[56px] p-4 text-sm;
+  }
+}
