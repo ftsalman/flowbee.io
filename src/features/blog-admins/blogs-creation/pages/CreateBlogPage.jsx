@@ -4,6 +4,8 @@ import { InputBox } from "../../../../../lib/turtle-ui/components/input-box/Inpu
 import { Button } from "../../../../../lib/turtle-ui/components/button/Button";
 import { BlogCard } from "../../../blog/components/BlogCard";
 import { BLOG_CATEGORIES } from "../../../../constants/blogData";
+import ReactQuill from "react-quill-new";
+import "react-quill-new/dist/quill.snow.css";
 
 const SAMPLE_IMAGES = [
   "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1000&auto=format&fit=crop",
@@ -37,8 +39,18 @@ export const CreateBlogPage = () => {
     "Discover how leading enterprises leverage automated WhatsApp AI chatbots to qualify leads, handle customer support, and close sales 24/7 without increasing team headcount.",
   );
   const [content, setContent] = useState(
-    `# The Future of Conversational Commerce\n\nIn today's fast-paced digital landscape, customers expect instant responses. When a potential buyer reaches out on WhatsApp, waiting hours for a reply often means losing the sale to a competitor.\n\n## Why AI Agents Are Game-Changers\n\nUnlike traditional static chatbots, modern AI agents powered by large language models understand context, nuance, and customer intent. They can seamlessly:\n\n- **Answer complex product queries** instantly using your knowledge base.\n- **Qualify inbound leads** before routing high-value prospects to human sales reps.\n- **Process orders and check shipping status** without human intervention.\n\n## Key Takeaways for Enterprise Leaders\n\nBy deploying Flowbee's WhatsApp automation suite, businesses routinely experience a **40% reduction in support response times** and a **3x increase in lead conversion rates**. The secret lies in blending automated AI speed with human touch.`,
+    `<h1>The Future of Conversational Commerce</h1><p>In today's fast-paced digital landscape, customers expect instant responses. When a potential buyer reaches out on WhatsApp, waiting hours for a reply often means losing the sale to a competitor.</p><h2>Why AI Agents Are Game-Changers</h2><p>Unlike traditional static chatbots, modern AI agents powered by large language models understand context, nuance, and customer intent. They can seamlessly:</p><ul><li><strong>Answer complex product queries</strong> instantly using your knowledge base.</li><li><strong>Qualify inbound leads</strong> before routing high-value prospects to human sales reps.</li><li><strong>Process orders and check shipping status</strong> without human intervention.</li></ul><h2>Key Takeaways for Enterprise Leaders</h2><p>By deploying Flowbee's WhatsApp automation suite, businesses routinely experience a <strong>40% reduction in support response times</strong> and a <strong>3x increase in lead conversion rates</strong>. The secret lies in blending automated AI speed with human touch.</p>`
   );
+
+  const quillModules = {
+    toolbar: [
+      [{ 'header': [1, 2, 3, false] }],
+      ['bold', 'italic', 'underline', 'strike', 'blockquote'],
+      [{ 'list': 'ordered' }, { 'list': 'bullet' }, { 'indent': '-1' }, { 'indent': '+1' }],
+      ['link', 'image'],
+      ['clean']
+    ]
+  };
 
   const [activeTab, setActiveTab] = useState("editor"); // 'editor' | 'preview-card' | 'preview-article'
   const [isPublishing, setIsPublishing] = useState(false);
@@ -236,18 +248,15 @@ export const CreateBlogPage = () => {
                     {content.split(/\s+/).filter(Boolean).length} words
                   </span>
                 </div>
-                <textarea
-                  rows="12"
-                  value={content}
-                  onChange={(e) => setContent(e.target.value)}
-                  placeholder="Write your comprehensive article here..."
-                  className="w-full rounded-xl p-5 border border-gray-300 focus:border-[#CA8A04] focus:outline-none focus:ring-2 focus:ring-[#FFD400]/30 font-mono text-sm text-neutral-800 transition-all leading-relaxed"
-                />
-                <div className="mt-2 text-[11px] text-neutral-400 flex items-center gap-4">
-                  <span>
-                    💡 Tip: Use # for headings, **bold**, and bullet points for
-                    rich formatting.
-                  </span>
+                <div className="mt-2 text-neutral-800">
+                  <ReactQuill
+                    theme="snow"
+                    value={content}
+                    onChange={setContent}
+                    modules={quillModules}
+                    className="bg-white rounded-xl overflow-hidden [&_.ql-toolbar]:rounded-t-xl [&_.ql-toolbar]:border-gray-300 [&_.ql-toolbar]:bg-gray-50 [&_.ql-container]:rounded-b-xl [&_.ql-container]:border-gray-300 [&_.ql-editor]:min-h-[300px] [&_.ql-editor]:text-base [&_.ql-editor]:font-sans"
+                    placeholder="Write your comprehensive article here..."
+                  />
                 </div>
               </div>
             </div>
@@ -482,30 +491,7 @@ export const CreateBlogPage = () => {
           </div>
 
           <div className="prose max-w-none text-neutral-800 space-y-4 text-base leading-relaxed font-normal">
-            {content.split("\n\n").map((para, idx) => {
-              if (para.startsWith("# ")) {
-                return (
-                  <h2
-                    key={idx}
-                    className="text-2xl font-extrabold text-black pt-4"
-                  >
-                    {para.replace("# ", "")}
-                  </h2>
-                );
-              }
-              if (para.startsWith("## ")) {
-                return (
-                  <h3 key={idx} className="text-xl font-bold text-black pt-2">
-                    {para.replace("## ", "")}
-                  </h3>
-                );
-              }
-              return (
-                <p key={idx} className="text-neutral-700">
-                  {para}
-                </p>
-              );
-            })}
+            <div dangerouslySetInnerHTML={{ __html: content }} />
           </div>
 
           <div className="pt-8 border-t border-gray-200 text-center">

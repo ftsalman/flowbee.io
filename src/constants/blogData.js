@@ -15,7 +15,7 @@ export const LATEST_POSTS = [
     excerpt:
       "Meta Business Agent or WhatsApp Business API? Compare broadcast limits, automation features, pricing, and scalability to make the best decision for your growing enterprise.",
     image:
-      "https://www.wati.io/wp-content/uploads/2026/07/Meta-Business-Agent-vs-WhatsApp-Business-API_1-1024x538.webp",
+      "/images/blog/automation-model.png",
     category: "ai-agent",
     categoryLabel: "AI Agent",
     author: "Flowbee Team",
@@ -29,7 +29,7 @@ export const LATEST_POSTS = [
     excerpt:
       "WhatsApp Business Calling on mobile means your team stays reachable anywhere. Discover how to set up voice calling, manage team permissions, and boost responsiveness.",
     image:
-      "https://www.wati.io/wp-content/uploads/2026/07/WhatsApp-Calling-on-Wati-Mobile-App-1-1024x538.webp",
+      "https://images.unsplash.com/photo-1512428559087-560fa5ceab42?auto=format&fit=crop&w=1024&q=80",
     category: "products",
     categoryLabel: "Products & Updates",
     author: "Alex Rivera",
@@ -44,7 +44,7 @@ export const LATEST_POSTS = [
     excerpt:
       "Learn how WhatsApp for Shopify helps you recover abandoned carts, send automated order notifications, and deliver instant 24/7 VIP customer support.",
     image:
-      "https://www.wati.io/wp-content/uploads/2026/06/WhatsApp-for-Shopify-1-1024x538.webp",
+      "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&w=1024&q=80",
     category: "ecommerce",
     categoryLabel: "E-commerce",
     author: "Sarah Jenkins",
@@ -63,7 +63,7 @@ export const ALL_POSTS = [
     excerpt:
       "WhatsApp Business Calling lets you make and receive VoIP calls directly within your customer conversation threads without leaving your CRM or dashboard.",
     image:
-      "https://www.wati.io/wp-content/uploads/2026/05/WhatsApp-Business-Calling_1-1-1024x538.webp",
+      "https://images.unsplash.com/photo-1521939094609-93aba1af40d7?auto=format&fit=crop&w=1024&q=80",
     category: "products",
     categoryLabel: "Products & Updates",
     author: "Flowbee Team",
@@ -78,7 +78,7 @@ export const ALL_POSTS = [
     excerpt:
       "This comprehensive tutorial shows you how to link Make.com with WhatsApp Business API to build no-code automation workflows in under 15 minutes.",
     image:
-      "https://www.wati.io/wp-content/uploads/2023/11/Make_1-1024x538.jpg",
+      "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=1024&q=80",
     category: "features",
     categoryLabel: "Features & Setup",
     author: "David Chen",
@@ -93,7 +93,7 @@ export const ALL_POSTS = [
     excerpt:
       "Learn the top strategies to optimize Instagram engagement, convert comments and DMs into high-intent leads, and connect them directly to WhatsApp sales funnels.",
     image:
-      "https://www.wati.io/wp-content/uploads/2026/03/IG-engagement-1-1024x538.webp",
+      "https://images.unsplash.com/photo-1611162617474-5b21e879e113?auto=format&fit=crop&w=1024&q=80",
     category: "marketing",
     categoryLabel: "Marketing",
     author: "Jessica Alba",
@@ -108,7 +108,7 @@ export const ALL_POSTS = [
     excerpt:
       "Learn how to set up WhatsApp Business Web, unlock multi-agent features, leverage quick replies, and streamline desktop messaging for customer support teams.",
     image:
-      "https://www.wati.io/wp-content/uploads/2024/02/Revamp-Blog-WhatsApp-Business-Web-How-To-Use-It-For-Your-Business-–-36-1024x512.webp",
+      "https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=1024&q=80",
     category: "whatsapp-api",
     categoryLabel: "WhatsApp API",
     author: "Flowbee Team",
@@ -122,7 +122,7 @@ export const ALL_POSTS = [
     excerpt:
       "If you’re looking to understand how WhatsApp Business APIs work, pricing tiers, template verification rules, and green tick application steps, start here.",
     image:
-      "https://www.wati.io/wp-content/uploads/2024/03/WhatsApp-Business-API_-Guide-to-Everything-You-Need-to-Know-1024x538.jpg",
+      "https://images.unsplash.com/photo-1551434678-e076c223a692?auto=format&fit=crop&w=1024&q=80",
     category: "whatsapp-api",
     categoryLabel: "WhatsApp API",
     author: "Michael Chang",
@@ -136,7 +136,7 @@ export const ALL_POSTS = [
     excerpt:
       "Copy and paste these 10 conversational AI chatbot scripts designed to engage first-time visitors, answer product queries, and schedule product demos automatically.",
     image:
-      "https://www.wati.io/wp-content/uploads/2023/05/Broadcast-Bulk-Messages.webp",
+      "https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=1024&q=80",
     category: "ai-agent",
     categoryLabel: "AI Agent",
     author: "Sarah Jenkins",
@@ -154,7 +154,7 @@ export const TRENDING_POSTS = [
     excerpt:
       "Learn the top strategies to optimize Instagram engagement, convert comments and DMs into high-intent leads, and connect them directly to WhatsApp sales funnels.",
     image:
-      "https://www.wati.io/wp-content/uploads/2026/03/IG-engagement-1-1024x538.webp",
+      "https://images.unsplash.com/photo-1611162617474-5b21e879e113?auto=format&fit=crop&w=1024&q=80",
     category: "marketing",
     categoryLabel: "Marketing",
     author: "Jessica Alba",
@@ -169,7 +169,7 @@ export const TRENDING_POSTS = [
     excerpt:
       "Learn how to set up WhatsApp Business Web, unlock multi-agent features, leverage quick replies, and streamline desktop messaging for customer support teams.",
     image:
-      "https://www.wati.io/wp-content/uploads/2024/02/Revamp-Blog-WhatsApp-Business-Web-How-To-Use-It-For-Your-Business-–-36-1024x512.webp",
+      "https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=1024&q=80",
     category: "whatsapp-api",
     categoryLabel: "WhatsApp API",
     author: "Flowbee Team",
@@ -183,7 +183,7 @@ export const TRENDING_POSTS = [
     excerpt:
       "If you’re looking to understand how WhatsApp Business APIs work, pricing tiers, template verification rules, and green tick application steps, start here.",
     image:
-      "https://www.wati.io/wp-content/uploads/2024/03/WhatsApp-Business-API_-Guide-to-Everything-You-Need-to-Know-1024x538.jpg",
+      "https://images.unsplash.com/photo-1551434678-e076c223a692?auto=format&fit=crop&w=1024&q=80",
     category: "whatsapp-api",
     categoryLabel: "WhatsApp API",
     author: "Michael Chang",
