@@ -98,7 +98,7 @@ export const Navbar = () => {
     <>
       <div className="w-full bg-white border-b border-gray-100 sticky top-0 z-50 select-none">
         {/* Top Yellow Strip */}
-        <div className="h-1 bg-[#FFD400] w-full" />
+        {/* <div className="h-1 bg-[#FFD400] w-full" /> */}
 
         {/* Main Navbar Content */}
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
