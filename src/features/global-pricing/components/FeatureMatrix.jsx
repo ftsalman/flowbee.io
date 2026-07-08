@@ -4,7 +4,7 @@ import { featureMatrix } from '../constants/pricingData';
 
 export const FeatureMatrix = () => {
   return (
-    <section className="max-w-7xl mx-auto px-6 mb-24 lg:mb-40">
+    <section className="max-w-6xl mx-auto px-6 mb-24 lg:mb-40">
       <h2 className="text-3xl lg:text-5xl font-black tracking-tighter text-center mb-12 lg:mb-20 uppercase italic">📊 Full Feature Matrix</h2>
       <div className="overflow-x-auto rounded-3xl border border-gray-100 shadow-2xl">
         <table className="w-full text-left border-collapse bg-white">

@@ -6,15 +6,15 @@ export const TargetAudienceSection = () => {
   return (
     <section className="py-20 lg:py-32 bg-[#111] text-white lg:rounded-[6rem] lg:mx-6 my-8 lg:my-12 px-6 lg:px-8 relative overflow-hidden shadow-2xl">
       <div className="absolute inset-0 bg-gradient-to-br from-[#25D366]/5 to-transparent"></div>
-      <div className="max-w-7xl mx-auto relative z-10">
+      <div className="max-w-6xl mx-auto relative z-10">
         <div className="flex flex-col md:flex-row justify-between items-center md:items-end mb-16 lg:mb-24 gap-6 text-center md:text-left">
           <h2 className="text-4xl lg:text-6xl font-black tracking-tighter leading-none">
             Built for <br />
             <span className="text-[#FFDD2D]">Growth.</span>
           </h2>
           <p className="text-gray-400 text-sm lg:text-lg max-w-sm font-medium italic">
-            "Whether you have 100 followers or 1,000 clients, there is a
-            place for you."
+            "Whether you have 100 followers or 1,000 clients, there is a place
+            for you."
           </p>
         </div>
 

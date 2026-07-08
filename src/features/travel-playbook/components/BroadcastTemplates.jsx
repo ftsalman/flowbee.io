@@ -4,7 +4,7 @@ import { broadcastTemplatesData } from '../constants/travelData';
 
 export const BroadcastTemplates = () => (
   <section className="py-24 bg-white border-b border-slate-100">
-    <div className="max-w-7xl mx-auto px-6">
+    <div className="max-w-6xl mx-auto px-6">
       <SectionHeader num="Templates" title="Example Travel Broadcast Templates" />
       
       <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mt-12">

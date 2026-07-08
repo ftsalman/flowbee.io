@@ -9,7 +9,7 @@ const fadeUp = {
 
 export const SolutionPillars = () => (
   <section className="py-24 bg-slate-50 border-b border-slate-200">
-    <div className="max-w-7xl mx-auto px-6 space-y-32">
+    <div className="max-w-6xl mx-auto px-6 space-y-32">
       
       {/* Auto Reply & Chatflows */}
       <motion.article initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} variants={fadeUp} className="grid lg:grid-cols-2 gap-12 items-center">
@@ -17,11 +17,11 @@ export const SolutionPillars = () => (
           <div className="w-14 h-14 bg-blue-100 rounded-2xl flex items-center justify-center text-blue-600">
             <FiCpu className="text-3xl" />
           </div>
-          <h2 className="text-3xl md:text-4xl font-black text-slate-900">Auto Reply & Travel Chatflows</h2>
-          <p className="text-lg text-slate-600 leading-relaxed">
+          <h2 className="text-2xl md:text-3xl font-black text-slate-900">Auto Reply & Travel Chatflows</h2>
+          <p className="text-sm text-slate-600 leading-relaxed">
             Reply instantly when a customer messages your agency. Create guided WhatsApp flows that collect customer requirements before your staff even intervenes.
           </p>
-          <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+          <div className="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm">
             <h4 className="font-bold text-slate-900 mb-3 text-sm uppercase">Example Flow Logic</h4>
             <ul className="space-y-2 text-sm text-slate-600">
               <li><strong className="text-slate-800">1. Intent:</strong> Select Holiday, Visa, or Flight.</li>
@@ -45,15 +45,15 @@ export const SolutionPillars = () => (
           <div className="w-14 h-14 bg-indigo-100 rounded-2xl flex items-center justify-center text-indigo-600">
             <FiUsers className="text-3xl" />
           </div>
-          <h2 className="text-3xl md:text-4xl font-black text-slate-900">Team Inbox for Travel Sales</h2>
-          <p className="text-lg text-slate-600 leading-relaxed">
+          <h2 className="text-2xl md:text-3xl font-black text-slate-900">Team Inbox for Travel Sales</h2>
+          <p className="text-sm text-slate-600 leading-relaxed">
             Manage all WhatsApp conversations from one dashboard. Route specific queries to the right department automatically.
           </p>
-          <ul className="space-y-3 text-slate-700 font-medium">
-            <li className="flex items-center gap-3"><FiCheckCircle className="text-[#0B2447] text-xl" /> Assign Dubai enquiries to the holiday team.</li>
-            <li className="flex items-center gap-3"><FiCheckCircle className="text-[#0B2447] text-xl" /> Route ticketing/visa issues to dedicated staff.</li>
-            <li className="flex items-center gap-3"><FiCheckCircle className="text-[#0B2447] text-xl" /> Add internal notes: "Family of 4, planning in August".</li>
-            <li className="flex items-center gap-3"><FiCheckCircle className="text-[#0B2447] text-xl" /> Mark chats as Open, Pending Follow-Up, or Solved.</li>
+          <ul className="space-y-3 text-slate-700 font-medium  text-sm">
+            <li className="flex items-center gap-3"><FiCheckCircle className="text-[#0B2447] text-md" /> Assign Dubai enquiries to the holiday team.</li>
+            <li className="flex items-center gap-3"><FiCheckCircle className="text-[#0B2447] text-md" /> Route ticketing/visa issues to dedicated staff.</li>
+            <li className="flex items-center gap-3"><FiCheckCircle className="text-[#0B2447] text-md" /> Add internal notes: "Family of 4, planning in August".</li>
+            <li className="flex items-center gap-3"><FiCheckCircle className="text-[#0B2447] text-md" /> Mark chats as Open, Pending Follow-Up, or Solved.</li>
           </ul>
         </div>
       </motion.article>

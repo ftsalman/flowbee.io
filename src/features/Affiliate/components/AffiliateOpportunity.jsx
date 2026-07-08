@@ -6,7 +6,7 @@ import { fadeUp } from "../utils/affiliateUtils";
 
 export const AffiliateOpportunity = () => {
   return (
-    <section className="py-16 lg:py-32 px-6 max-w-7xl mx-auto">
+    <section className="py-16 lg:py-32 px-6 max-w-6xl mx-auto">
       <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-24 text-center lg:text-left">
         <motion.div
           initial="hidden"

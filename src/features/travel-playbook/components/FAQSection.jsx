@@ -21,7 +21,7 @@ export const FAQSection = () => {
             <article key={idx} className="bg-white border border-slate-200 rounded-2xl overflow-hidden shadow-sm">
               <button 
                 onClick={() => toggleFaq(idx)}
-                className="w-full flex justify-between items-center p-6 font-bold text-base text-slate-900 text-left hover:bg-slate-50 transition-colors"
+                className="w-full flex justify-between items-center p-6 font-bold text-md text-slate-900 text-left hover:bg-slate-50 transition-colors"
               >
                 <span className="flex items-center gap-4"><FiHelpCircle className="text-[#1959D1] text-xl" /> {faq.q}</span>
                 <FiChevronDown className={`text-slate-400 transition-transform duration-300 shrink-0 ${activeFaq === idx ? 'rotate-180' : ''}`} />

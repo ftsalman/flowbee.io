@@ -10,7 +10,7 @@ export const CommissionTiersSection = () => {
       id="tiers"
       className="py-16 lg:py-32 bg-[#fafafa] border-y border-gray-100 px-6"
     >
-      <div className="max-w-7xl mx-auto text-center mb-16 lg:mb-24">
+      <div className="max-w-6xl mx-auto text-center mb-16 lg:mb-24">
         <h2 className="text-2xl lg:text-5xl font-black tracking-tighter mb-4 uppercase italic text-[#111]">
           Commission Tiers.
         </h2>

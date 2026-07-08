@@ -19,7 +19,7 @@ export const PricingCards = ({ selectedRegion, billingCycle }) => {
   };
 
   return (
-    <section className="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 py-12 lg:py-24">
+    <section className="max-w-6xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 py-12 lg:py-24">
       {['starter', 'growth', 'pro'].map((plan) => {
         const data = getPriceData(plan);
         const isGrowth = plan === 'growth';
@@ -34,14 +34,14 @@ export const PricingCards = ({ selectedRegion, billingCycle }) => {
             {isGrowth && <div className="absolute -top-5 left-1/2 -translate-x-1/2 bg-[#FFDD2D] text-[#111] text-[9px] lg:text-[10px] font-black px-6 py-2 rounded-full uppercase tracking-[0.2em] shadow-xl">Best Value</div>}
             
             <div className="mb-8 lg:mb-10 text-left">
-              <h3 className={`text-xl lg:text-2xl font-black mb-4 uppercase flex items-center gap-2 ${isGrowth ? 'text-[#FFDD2D]' : 'text-[#111]'}`}>
+              <h3 className={`text-md lg:text-xl font-black mb-4 uppercase flex items-center gap-2 ${isGrowth ? 'text-[#FFDD2D]' : 'text-[#111]'}`}>
                 {plan === 'starter' && <FiZap className="text-orange-500"/>}
                 {plan === 'growth' && <FiTarget />}
                 {plan === 'pro' && <FiBriefcase className="text-purple-500"/>}
                 {plan}
               </h3>
               <div className="flex items-baseline gap-1">
-                <span className="text-4xl lg:text-6xl font-black">{selectedRegion.symbol}{displayPrice}</span>
+                <span className="text-3xl lg:text-5xl font-black">{selectedRegion.symbol}{displayPrice}</span>
                 <span className="text-gray-400 font-bold text-xs lg:text-sm">/{billingCycle === 'monthly' ? 'mo' : 'yr'}</span>
               </div>
               {billingCycle === 'yearly' && (
@@ -49,8 +49,8 @@ export const PricingCards = ({ selectedRegion, billingCycle }) => {
               )}
             </div>
 
-            <div className="space-y-6 mb-12 flex-grow border-t border-gray-100 pt-8">
-              <div className="space-y-3 text-xs lg:text-sm font-medium text-left">
+            <div className="space-y-4 mb-12 flex-grow border-t border-gray-100 pt-8">
+              <div className="space-y-2 text-xs lg:text-sm font-medium text-left">
                 {[
                   `👥 ${plan === 'starter' ? '3' : plan === 'growth' ? '10' : '100'} Users Included`,
                   plan === 'starter' ? "5 Basic Chatbots" : plan === 'growth' ? "20 Advanced Chatbots" : "Unlimited Chatbots",

@@ -3,7 +3,7 @@ import { FiTarget } from 'react-icons/fi';
 
 export const BroadcastSection = () => (
   <section className="py-32 bg-[#0B2447] text-white">
-    <div className="max-w-7xl mx-auto px-6">
+    <div className="max-w-6xl mx-auto px-6">
       <div className="text-center mb-16">
         <div className="inline-flex items-center gap-2 px-5 py-2 bg-blue-500/20 text-blue-300 rounded-full text-xs font-black uppercase tracking-widest mb-6 border border-blue-500/30">
           <FiTarget size={16} /> Targeted Marketing Engine
@@ -11,7 +11,7 @@ export const BroadcastSection = () => (
         <h2 className="text-4xl md:text-6xl font-black tracking-tight mb-6 text-white">
           Broadcast Messaging for Travel Offers
         </h2>
-        <p className="text-xl text-blue-100/80 max-w-3xl mx-auto">
+        <p className="text-md text-blue-100/80 max-w-3xl mx-auto">
           Flowbee.io helps travel agencies send targeted WhatsApp broadcast campaigns to the exact right customer groups without getting blocked.
         </p>
       </div>
@@ -20,8 +20,8 @@ export const BroadcastSection = () => (
         {/* Broadcast Content */}
         <div className="space-y-10">
           <div>
-            <h3 className="text-2xl font-bold mb-4 text-white">Why Targeted Broadcast Matters</h3>
-            <p className="text-slate-300 leading-relaxed">
+            <h3 className="text-xl font-bold mb-4 text-white">Why Targeted Broadcast Matters</h3>
+            <p className="text-slate-300 leading-relaxed text-sm">
               A honeymoon customer should not receive the same message as a corporate travel client. A visa lead needs different updates than a family vacation prospect. Segment your contacts and send highly relevant, high-converting campaigns.
             </p>
           </div>
@@ -29,7 +29,7 @@ export const BroadcastSection = () => (
           <div className="grid sm:grid-cols-2 gap-4">
             <div className="bg-white/5 border border-white/10 p-5 rounded-2xl">
               <h4 className="font-bold text-blue-300 mb-2">Campaign Examples</h4>
-              <ul className="text-sm text-slate-300 space-y-2">
+              <ul className="text-xs text-slate-300 space-y-2">
                 <li>• Dubai holiday packages</li>
                 <li>• Kerala tour offers</li>
                 <li>• Umrah group packages</li>
@@ -39,7 +39,7 @@ export const BroadcastSection = () => (
             </div>
             <div className="bg-white/5 border border-white/10 p-5 rounded-2xl">
               <h4 className="font-bold text-blue-300 mb-2">Smart Segmentation</h4>
-              <ul className="text-sm text-slate-300 space-y-2">
+              <ul className="text-xs text-slate-300 space-y-2">
                 <li>• By Destination (Europe, Asia)</li>
                 <li>• By Interest (Visa, Ticketing)</li>
                 <li>• By Stage (Payment Pending)</li>
