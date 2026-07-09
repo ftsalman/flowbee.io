@@ -59,17 +59,42 @@ export const CreateBlogPage = () => {
   const [showSuccessModal, setShowSuccessModal] = useState(false);
   const [publishedBlogs, setPublishedBlogs] = useState([]);
 
-  // Handle local image upload from device
+  // Handle local image upload from device with compression
   const handleImageUpload = (e, target) => {
     const file = e.target.files?.[0];
     if (!file) return;
     const reader = new FileReader();
     reader.onloadend = () => {
-      if (target === "cover") {
-        setImage(reader.result);
-      } else if (target === "author") {
-        setAuthorImage(reader.result);
-      }
+      const img = new Image();
+      img.onload = () => {
+        const canvas = document.createElement("canvas");
+        const MAX_DIMENSION = 800; // Resize to max 800px
+        let width = img.width;
+        let height = img.height;
+
+        if (width > height && width > MAX_DIMENSION) {
+          height *= MAX_DIMENSION / width;
+          width = MAX_DIMENSION;
+        } else if (height > MAX_DIMENSION) {
+          width *= MAX_DIMENSION / height;
+          height = MAX_DIMENSION;
+        }
+
+        canvas.width = width;
+        canvas.height = height;
+        const ctx = canvas.getContext("2d");
+        ctx.drawImage(img, 0, 0, width, height);
+
+        // Compress as JPEG to keep base64 string well under 1MB limit
+        const compressedBase64 = canvas.toDataURL("image/jpeg", 0.7);
+
+        if (target === "cover") {
+          setImage(compressedBase64);
+        } else if (target === "author") {
+          setAuthorImage(compressedBase64);
+        }
+      };
+      img.src = reader.result;
     };
     reader.readAsDataURL(file);
   };
