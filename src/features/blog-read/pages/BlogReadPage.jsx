@@ -125,9 +125,9 @@ The future belongs to agile organizations that combine artificial intelligence w
   `;
 
   return (
-    <article className="min-h-screen bg-white pb-24 selection:bg-[#FFD400]/40 selection:text-black font-sans">
+    <article className="min-h-screen bg-white pb-24 selection:bg-[#FFD400]/40 selection:text-black font-sans overflow-x-hidden">
       {/* Top Breadcrumb & Navigation Bar */}
-      <div className="bg-[#FAFBFD] border-b border-gray-200/80 sticky top-16 z-40 backdrop-blur-md bg-white/80">
+      <div className="bg-[#FAFBFD] border-b border-gray-200/80 sticky z-40 backdrop-blur-md bg-white/80">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 h-14 flex items-center justify-between">
           <Link
             to="/blog"
@@ -175,7 +175,7 @@ The future belongs to agile organizations that combine artificial intelligence w
           <span>● {post.categoryLabel || "Article"}</span>
         </div>
 
-        <h1 className="text-3xl sm:text-5xl lg:text-6xl font-black text-neutral-900 tracking-tight leading-[1.15] max-w-3xl mx-auto">
+        <h1 className="text-3xl sm:text-5xl lg:text-6xl font-black text-neutral-900 tracking-tight leading-[1.15] max-w-3xl mx-auto break-words">
           {post.title}
         </h1>
 
@@ -226,7 +226,7 @@ The future belongs to agile organizations that combine artificial intelligence w
 
       {/* Article Body Prose */}
       <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="prose max-w-none text-neutral-800 space-y-6 text-lg leading-relaxed font-normal">
+        <div className="prose max-w-none text-neutral-800 space-y-6 text-lg leading-relaxed font-normal break-words overflow-hidden">
           {displayContent.split("\n\n").map((para, idx) => {
             if (para.trim().startsWith("# ")) {
               return (
