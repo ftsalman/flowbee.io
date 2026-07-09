@@ -7,20 +7,31 @@ import {
   TRENDING_POSTS,
   ALL_POSTS,
 } from "../../../constants/blogData";
+import { db } from "../../../config/firebase";
+import { collection, getDocs } from "firebase/firestore";
 
 export const BlogGrid = ({ searchTerm }) => {
   const [activeCategory, setActiveCategory] = useState("all");
   const [customPosts, setCustomPosts] = useState([]);
 
   useEffect(() => {
-    const saved = localStorage.getItem("flowbee_custom_blogs");
-    if (saved) {
+    const fetchBlogs = async () => {
       try {
-        setCustomPosts(JSON.parse(saved));
-      } catch (e) {
+        const querySnapshot = await getDocs(collection(db, "posts"));
+        const blogsData = querySnapshot.docs.map(doc => ({
+          id: doc.id,
+          ...doc.data()
+        }));
+        // Sort newest first
+        blogsData.sort((a, b) => new Date(b.createdAt || 0) - new Date(a.createdAt || 0));
+        setCustomPosts(blogsData);
+      } catch (error) {
+        console.error("Error fetching blogs from Firestore:", error);
         setCustomPosts([]);
       }
-    }
+    };
+
+    fetchBlogs();
   }, []);
 
   const mergedAllPosts = [...customPosts, ...ALL_POSTS];

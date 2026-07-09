@@ -7,6 +7,8 @@ import {
   LATEST_POSTS,
   TRENDING_POSTS,
 } from "../../../constants/blogData";
+import { db } from "../../../config/firebase";
+import { collection, getDocs } from "firebase/firestore";
 
 export const BlogReadPage = () => {
   const { id } = useParams();
@@ -20,40 +22,52 @@ export const BlogReadPage = () => {
     window.scrollTo(0, 0);
     setHelpfulState(null);
 
-    // 1. Fetch from custom localStorage blogs first, then static constants
-    const saved = localStorage.getItem("flowbee_custom_blogs");
-    const customPosts = saved ? JSON.parse(saved) : [];
-    const allAvailablePosts = [
-      ...customPosts,
-      ...LATEST_POSTS,
-      ...TRENDING_POSTS,
-      ...ALL_POSTS,
-    ];
+    const fetchPosts = async () => {
+      try {
+        const querySnapshot = await getDocs(collection(db, "posts"));
+        const customPosts = querySnapshot.docs.map(doc => ({
+          id: doc.id,
+          ...doc.data()
+        }));
 
-    // Find matching post by id (string or number match)
-    const found = allAvailablePosts.find(
-      (p) => String(p.id) === String(id) || p.slug === id
-    );
+        const allAvailablePosts = [
+          ...customPosts,
+          ...LATEST_POSTS,
+          ...TRENDING_POSTS,
+          ...ALL_POSTS,
+        ];
 
-    if (found) {
-      setPost(found);
-      // Get up to 3 related posts from same category or fallback to latest
-      const related = allAvailablePosts
-        .filter((p) => String(p.id) !== String(found.id))
-        .filter((p) => p.category === found.category || !found.category)
-        .slice(0, 3);
+        // Find matching post by id (string or number match)
+        const found = allAvailablePosts.find(
+          (p) => String(p.id) === String(id) || p.slug === id
+        );
 
-      if (related.length < 3) {
-        const remaining = allAvailablePosts
-          .filter((p) => String(p.id) !== String(found.id))
-          .slice(0, 3 - related.length);
-        setRelatedPosts([...related, ...remaining]);
-      } else {
-        setRelatedPosts(related);
+        if (found) {
+          setPost(found);
+          // Get up to 3 related posts from same category or fallback to latest
+          const related = allAvailablePosts
+            .filter((p) => String(p.id) !== String(found.id))
+            .filter((p) => p.category === found.category || !found.category)
+            .slice(0, 3);
+
+          if (related.length < 3) {
+            const remaining = allAvailablePosts
+              .filter((p) => String(p.id) !== String(found.id))
+              .slice(0, 3 - related.length);
+            setRelatedPosts([...related, ...remaining]);
+          } else {
+            setRelatedPosts(related);
+          }
+        } else {
+          setPost(null);
+        }
+      } catch (error) {
+        console.error("Error fetching blogs from Firestore:", error);
+        setPost(null);
       }
-    } else {
-      setPost(null);
-    }
+    };
+
+    fetchPosts();
   }, [id]);
 
   const handleCopyLink = () => {
@@ -117,9 +131,11 @@ The future belongs to agile organizations that combine artificial intelligence w
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 h-14 flex items-center justify-between">
           <Link
             to="/blog"
-            className="inline-flex items-center gap-2 text-xs font-bold text-neutral-600 hover:text-black transition-colors"
+            className="inline-flex items-center gap-1 sm:gap-2 text-xs font-bold text-neutral-600 hover:text-black transition-colors"
           >
-            <span>←</span> Back to All Articles
+            <span>←</span> 
+            <span className="hidden sm:inline">Back to All Articles</span>
+            <span className="sm:hidden">Back</span>
           </Link>
 
           <div className="flex items-center gap-2">
@@ -128,7 +144,8 @@ The future belongs to agile organizations that combine artificial intelligence w
               onClick={handleCopyLink}
               className="!px-3 !py-1.5 !rounded-lg !border !border-gray-300 !bg-white hover:!bg-gray-50 !text-xs !font-bold !text-neutral-700 flex items-center gap-1.5 shadow-sm transition-all active:scale-95 cursor-pointer"
             >
-              <span>{copied ? "✅ Copied!" : "🔗 Copy Link"}</span>
+              <span>{copied ? "✅ Copied!" : "🔗"}</span>
+              <span className="hidden sm:inline">{copied ? "" : "Copy Link"}</span>
             </Button>
             <a
               href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(post.title)}&url=${encodeURIComponent(window.location.href)}`}
@@ -288,7 +305,7 @@ The future belongs to agile organizations that combine artificial intelligence w
           <h4 className="text-xl font-extrabold text-neutral-900">
             Did you find this article helpful?
           </h4>
-          <div className="flex items-center justify-center gap-4">
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4">
             <Button
               onClick={() => setHelpfulState("yes")}
               className={`!px-6 !py-3 !rounded-2xl !font-bold !text-sm transition-all flex items-center gap-2 !border cursor-pointer ${
@@ -349,17 +366,17 @@ The future belongs to agile organizations that combine artificial intelligence w
       =================================== */}
       {relatedPosts.length > 0 && (
         <section className="mt-20 pt-16 border-t border-gray-200 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between mb-10">
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-10 text-center sm:text-left">
             <div>
               <span className="text-xs font-bold text-[#CA8A04] uppercase tracking-wider block mb-1">
                 Keep Reading
               </span>
-              <h3 className="text-3xl font-extrabold text-neutral-900 tracking-tight">
+              <h3 className="text-2xl sm:text-3xl font-extrabold text-neutral-900 tracking-tight">
                 Related Articles You Might Enjoy
               </h3>
             </div>
             <Link to="/blog">
-              <Button size="sm" className="!bg-[#FFD400] hover:!bg-[#E6BF00] !text-black !font-extrabold !rounded-xl !px-6 !py-2.5 shadow-[3px_3px_0px_0px_#C9A000] active:scale-95 transition-all">
+              <Button size="sm" className="!bg-[#FFD400] hover:!bg-[#E6BF00] !text-black !font-extrabold !rounded-xl !px-6 !py-2.5 shadow-[3px_3px_0px_0px_#C9A000] active:scale-95 transition-all w-full sm:w-auto">
                 View All Posts →
               </Button>
             </Link>

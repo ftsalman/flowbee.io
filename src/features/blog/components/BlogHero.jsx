@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { Button } from "../../../../lib/turtle-ui/components";
 import { HeroThreeBackground } from "./HeroThreeBackground";
 
@@ -76,6 +77,16 @@ export const BlogHero = ({ searchTerm, setSearchTerm }) => {
               </Button>
             </div>
           </div>
+        </div>
+
+        {/* Admin Action for creating new blogs */}
+        <div className="mt-8 flex justify-center">
+          <Link to="/admin/create-blog">
+            <Button size="sm" className="!bg-black !text-white !font-bold !rounded-xl !px-5 !py-2.5 hover:!bg-gray-800 transition-all shadow-sm flex items-center gap-2">
+              <span>✍️</span>
+              Create New Blog
+            </Button>
+          </Link>
         </div>
       </div>
     </section>

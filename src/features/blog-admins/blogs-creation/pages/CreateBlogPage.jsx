@@ -6,6 +6,8 @@ import { BlogCard } from "../../../blog/components/BlogCard";
 import { BLOG_CATEGORIES } from "../../../../constants/blogData";
 import ReactQuill from "react-quill-new";
 import "react-quill-new/dist/quill.snow.css";
+import { db } from "../../../../config/firebase";
+import { collection, addDoc, getDocs, deleteDoc, doc } from "firebase/firestore";
 
 const SAMPLE_IMAGES = [
   "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1000&auto=format&fit=crop",
@@ -72,16 +74,25 @@ export const CreateBlogPage = () => {
     reader.readAsDataURL(file);
   };
 
-  // Load existing custom blogs from localStorage
+  // Load existing custom blogs from Firestore
   useEffect(() => {
-    const saved = localStorage.getItem("flowbee_custom_blogs");
-    if (saved) {
+    const fetchBlogs = async () => {
       try {
-        setPublishedBlogs(JSON.parse(saved));
-      } catch (e) {
+        const querySnapshot = await getDocs(collection(db, "posts"));
+        const blogsData = querySnapshot.docs.map(doc => ({
+          id: doc.id,
+          ...doc.data()
+        }));
+        // Sort newest first
+        blogsData.sort((a, b) => new Date(b.createdAt || 0) - new Date(a.createdAt || 0));
+        setPublishedBlogs(blogsData);
+      } catch (error) {
+        console.error("Error fetching blogs from Firestore:", error);
         setPublishedBlogs([]);
       }
-    }
+    };
+
+    fetchBlogs();
   }, []);
 
   // Get current category label
@@ -107,33 +118,54 @@ export const CreateBlogPage = () => {
     content: content,
   };
 
-  const handlePublish = (e) => {
+  const handlePublish = async (e) => {
     e.preventDefault();
     if (!title.trim() || !excerpt.trim()) return;
 
     setIsPublishing(true);
 
-    setTimeout(() => {
+    try {
       const newBlogPost = {
-        ...previewPost,
-        id: `custom-${Date.now()}`,
+        title: title || "Untitled Article",
+        category: category,
+        categoryLabel: categoryLabel,
+        author: author || "Flowbee Author",
+        authorImage: authorImage || "",
+        readTime: readTime || "3 min read",
+        date: new Date().toLocaleDateString("en-US", {
+          month: "long",
+          day: "numeric",
+          year: "numeric",
+        }),
+        image: image || SAMPLE_IMAGES[0],
+        excerpt: excerpt || "No excerpt provided...",
+        content: content,
+        createdAt: new Date().toISOString()
       };
 
-      const updatedBlogs = [newBlogPost, ...publishedBlogs];
-      localStorage.setItem(
-        "flowbee_custom_blogs",
-        JSON.stringify(updatedBlogs),
-      );
+      const docRef = await addDoc(collection(db, "posts"), newBlogPost);
+      const publishedPost = { ...newBlogPost, id: docRef.id };
+
+      const updatedBlogs = [publishedPost, ...publishedBlogs];
       setPublishedBlogs(updatedBlogs);
       setIsPublishing(false);
       setShowSuccessModal(true);
-    }, 500);
+    } catch (error) {
+      console.error("Error saving blog to Firestore: ", error);
+      setIsPublishing(false);
+      alert("Failed to publish blog. Please check your connection and Firebase configuration.");
+    }
   };
 
-  const handleDeleteBlog = (id) => {
-    const updated = publishedBlogs.filter((b) => b.id !== id);
-    localStorage.setItem("flowbee_custom_blogs", JSON.stringify(updated));
-    setPublishedBlogs(updated);
+  const handleDeleteBlog = async (id) => {
+    try {
+      await deleteDoc(doc(db, "posts", id));
+      const updated = publishedBlogs.filter((b) => b.id !== id);
+      setPublishedBlogs(updated);
+    } catch (error) {
+      console.error("Error deleting blog from Firestore: ", error);
+      alert("Failed to delete blog.");
+    }
   };
 
   return (
