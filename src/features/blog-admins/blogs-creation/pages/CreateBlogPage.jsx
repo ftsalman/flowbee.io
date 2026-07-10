@@ -7,7 +7,7 @@ import { BLOG_CATEGORIES } from "../../../../constants/blogData";
 import ReactQuill from "react-quill-new";
 import "react-quill-new/dist/quill.snow.css";
 import { db } from "../../../../config/firebase";
-import { collection, addDoc, getDocs, deleteDoc, doc } from "firebase/firestore";
+import { collection, addDoc, getDocs, deleteDoc, doc, updateDoc } from "firebase/firestore";
 
 const SAMPLE_IMAGES = [
   "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1000&auto=format&fit=crop",
@@ -58,6 +58,7 @@ export const CreateBlogPage = () => {
   const [isPublishing, setIsPublishing] = useState(false);
   const [showSuccessModal, setShowSuccessModal] = useState(false);
   const [publishedBlogs, setPublishedBlogs] = useState([]);
+  const [editingId, setEditingId] = useState(null);
 
   // Helper to compress image before converting to base64
   const compressImage = (file, maxWidth = 800, quality = 0.7) => {
@@ -158,7 +159,7 @@ export const CreateBlogPage = () => {
     setIsPublishing(true);
 
     try {
-      const newBlogPost = {
+      const blogData = {
         title: title || "Untitled Article",
         category: category,
         categoryLabel: categoryLabel,
@@ -173,14 +174,21 @@ export const CreateBlogPage = () => {
         image: image || SAMPLE_IMAGES[0],
         excerpt: excerpt || "No excerpt provided...",
         content: content,
-        createdAt: new Date().toISOString()
       };
 
-      const docRef = await addDoc(collection(db, "posts"), newBlogPost);
-      const publishedPost = { ...newBlogPost, id: docRef.id };
-
-      const updatedBlogs = [publishedPost, ...publishedBlogs];
-      setPublishedBlogs(updatedBlogs);
+      if (editingId) {
+        await updateDoc(doc(db, "posts", editingId), blogData);
+        const updatedBlogs = publishedBlogs.map((b) =>
+          b.id === editingId ? { ...b, ...blogData } : b
+        );
+        setPublishedBlogs(updatedBlogs);
+      } else {
+        blogData.createdAt = new Date().toISOString();
+        const docRef = await addDoc(collection(db, "posts"), blogData);
+        const publishedPost = { ...blogData, id: docRef.id };
+        setPublishedBlogs([publishedPost, ...publishedBlogs]);
+      }
+      
       setIsPublishing(false);
       setShowSuccessModal(true);
     } catch (error) {
@@ -188,6 +196,20 @@ export const CreateBlogPage = () => {
       setIsPublishing(false);
       alert("Failed to publish blog. Please check your connection and Firebase configuration.");
     }
+  };
+
+  const handleEditBlog = (post) => {
+    setTitle(post.title);
+    setCategory(post.category);
+    setAuthor(post.author);
+    setAuthorImage(post.authorImage || "");
+    setReadTime(post.readTime);
+    setImage(post.image);
+    setExcerpt(post.excerpt);
+    setContent(post.content);
+    setEditingId(post.id);
+    setActiveTab("editor");
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   const handleDeleteBlog = async (id) => {
@@ -212,7 +234,7 @@ export const CreateBlogPage = () => {
             <span>🚀 Content Studio</span>
           </div>
           <h1 className="text-2xl sm:text-3xl font-extrabold text-neutral-900 tracking-tight">
-            Publish New Blog Article
+            {editingId ? "Edit Blog Article" : "Publish New Blog Article"}
           </h1>
           <p className="text-neutral-500 text-xs sm:text-sm mt-1">
             Create, format, and immediately broadcast articles to your Flowbee
@@ -453,7 +475,7 @@ export const CreateBlogPage = () => {
                 </div>
               </div>
 
-              <div className="pt-3 border-t border-gray-100">
+              <div className="pt-3 border-t border-gray-100 flex flex-col gap-2">
                 <Button
                   type="submit"
                   disabled={isPublishing}
@@ -462,14 +484,28 @@ export const CreateBlogPage = () => {
                   {isPublishing ? (
                     <>
                       <span className="w-4 h-4 border-2 border-black border-t-transparent rounded-full animate-spin" />
-                      <span>Broadcasting...</span>
+                      <span>{editingId ? "Updating..." : "Broadcasting..."}</span>
                     </>
                   ) : (
                     <>
-                      <span>✨ Publish Blog Article</span>
+                      <span>✨ {editingId ? "Update Blog Article" : "Publish Blog Article"}</span>
                     </>
                   )}
                 </Button>
+                {editingId && (
+                  <Button
+                    type="button"
+                    onClick={() => {
+                      setEditingId(null);
+                      setTitle("");
+                      setExcerpt("");
+                      setContent("");
+                    }}
+                    className="w-full !bg-white hover:!bg-gray-50 !text-black !font-bold !py-2.5 !rounded-xl transition-all border border-gray-200 shadow-sm text-sm"
+                  >
+                    Cancel Edit
+                  </Button>
+                )}
               </div>
             </div>
 
@@ -634,13 +670,22 @@ export const CreateBlogPage = () => {
                   <span className="text-xs text-green-600 font-semibold flex items-center gap-1">
                     <span>●</span> Live on Site
                   </span>
-                  <Button
-                    type="button"
-                    onClick={() => handleDeleteBlog(post.id)}
-                    className="!bg-transparent !text-xs !font-bold !text-red-600 hover:!text-red-700 hover:underline !px-2 !py-1 !rounded hover:!bg-red-50 transition-all shadow-none"
-                  >
-                    🗑️ Delete
-                  </Button>
+                  <div className="flex gap-2">
+                    <Button
+                      type="button"
+                      onClick={() => handleEditBlog(post)}
+                      className="!bg-transparent !text-xs !font-bold !text-blue-600 hover:!text-blue-700 hover:underline !px-2 !py-1 !rounded hover:!bg-blue-50 transition-all shadow-none"
+                    >
+                      ✏️ Edit
+                    </Button>
+                    <Button
+                      type="button"
+                      onClick={() => handleDeleteBlog(post.id)}
+                      className="!bg-transparent !text-xs !font-bold !text-red-600 hover:!text-red-700 hover:underline !px-2 !py-1 !rounded hover:!bg-red-50 transition-all shadow-none"
+                    >
+                      🗑️ Delete
+                    </Button>
+                  </div>
                 </div>
               </div>
             ))}
@@ -656,11 +701,11 @@ export const CreateBlogPage = () => {
               🎉
             </div>
             <h3 className="text-2xl font-black text-neutral-900 mb-2">
-              Article Published Live!
+              {editingId ? "Article Updated!" : "Article Published Live!"}
             </h3>
             <p className="text-sm text-neutral-600 mb-6">
-              Your new article <strong className="text-black">"{title}"</strong>{" "}
-              has been successfully broadcast to the Flowbee blog grid.
+              Your article <strong className="text-black">"{title}"</strong>{" "}
+              has been successfully {editingId ? "updated on" : "broadcast to"} the Flowbee blog grid.
             </p>
             <div className="space-y-3">
               <Link to="/" className="block w-full">
@@ -674,6 +719,8 @@ export const CreateBlogPage = () => {
                   setShowSuccessModal(false);
                   setTitle("");
                   setExcerpt("");
+                  setContent("");
+                  setEditingId(null);
                 }}
                 className="w-full !py-2.5 !bg-transparent !text-xs !font-bold text-neutral-600 hover:text-black hover:!bg-gray-100 !rounded-xl transition-all shadow-none"
               >
