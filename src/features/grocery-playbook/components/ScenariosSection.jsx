@@ -10,8 +10,8 @@ export const ScenariosSection = () => (
       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mt-12">
         {scenariosData.map((item, i) => (
           <div key={i} className="bg-white border border-gray-100 p-8 rounded-3xl shadow-sm hover:shadow-lg transition-all">
-            <h4 className="text-xl font-black text-gray-900 mb-3">{item.title}</h4>
-            <p className="text-gray-600 text-sm leading-relaxed font-medium">{item.desc}</p>
+            <h4 className="text-lg font-black text-gray-900 mb-3">{item.title}</h4>
+            <p className="text-gray-600 text-[14px] leading-relaxed font-medium">{item.desc}</p>
           </div>
         ))}
       </div>

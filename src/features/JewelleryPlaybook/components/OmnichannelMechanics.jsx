@@ -9,7 +9,7 @@ const fadeUp = {
 
 export const OmnichannelMechanics = () => (
   <section className="py-16 md:py-24 lg:py-32 bg-gray-50 border-b border-gray-200">
-    <div className="max-w-7xl mx-auto px-4 md:px-6 space-y-16 md:space-y-24 lg:space-y-32">
+    <div className="max-w-6xl mx-auto px-4 md:px-6 space-y-16 md:space-y-24 lg:space-y-32">
       
       {/* 1. AUTO REPLY CHATBOT */}
       <motion.article initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} variants={fadeUp} className="grid lg:grid-cols-2 gap-8 md:gap-12 lg:gap-16 items-center">
@@ -17,11 +17,11 @@ export const OmnichannelMechanics = () => (
           <div className="w-12 h-12 md:w-16 md:h-16 bg-[#25D366]/10 rounded-xl md:rounded-2xl flex items-center justify-center border border-[#25D366]/20">
             <FiCpu className="text-2xl md:text-3xl text-[#128C7E]" />
           </div>
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-black tracking-tight text-gray-900">NLP Auto-Reply & <br className="hidden md:block"/><span className="text-[#128C7E]">Visual Chatflows</span></h2>
-          <p className="text-base md:text-lg lg:text-xl text-gray-600 leading-relaxed">
+          <h2 className="text-2xl md:text-3xl lg:text-4xl font-black tracking-tight text-gray-900">NLP Auto-Reply & <br className="hidden md:block"/><span className="text-[#128C7E]">Visual Chatflows</span></h2>
+          <p className="text-base md:text-md lg:text-md text-gray-600 leading-relaxed">
             Never lose a hot lead because your showroom was closed. Construct complex conversational architectures to automate repetitive baseline queries and secure appointments.
           </p>
-          <ul className="space-y-3 md:space-y-4 text-sm md:text-base text-gray-700 font-bold">
+          <ul className="space-y-3 md:space-y-4 text-sm md:text-md text-gray-700 font-bold">
             <li className="flex items-start md:items-center gap-3"><FiCheckCircle className="text-[#B8860B] text-lg md:text-xl shrink-0 mt-0.5 md:mt-0" /> <span className="flex-1"><strong>24/7 Gold Rates:</strong> Automated delivery of today's live 22k and 24k Gold Rates.</span></li>
             <li className="flex items-start md:items-center gap-3"><FiCheckCircle className="text-[#B8860B] text-lg md:text-xl shrink-0 mt-0.5 md:mt-0" /> <span className="flex-1"><strong>Interactive Booking:</strong> Native list menus guiding customers to book physical showroom visits seamlessly.</span></li>
             <li className="flex items-start md:items-center gap-3"><FiCheckCircle className="text-[#B8860B] text-lg md:text-xl shrink-0 mt-0.5 md:mt-0" /> <span className="flex-1"><strong>Human Fallback:</strong> Flawless transition from automated bot logic to human sales executives for custom ornament negotiations.</span></li>

@@ -4,10 +4,10 @@ import { marketContextData } from '../constants/groceryData';
 
 export const MarketContext = () => (
   <section className="py-20 bg-gray-50 border-b border-gray-200">
-    <div className="max-w-7xl mx-auto px-6">
+    <div className="max-w-6xl mx-auto px-6">
       <SectionHeader num="Market Context" title="Supermarket Customers Love Timely Offers" />
       
-      <p className="text-center text-gray-600 max-w-3xl mx-auto mb-16 text-lg">
+      <p className="text-center text-gray-600 max-w-3xl mx-auto mb-16 text-md">
         Supermarket purchases are highly repeat-based. Customers buy groceries weekly, sometimes daily. They look for price offers, fresh item updates, household essentials, and delivery options. Flowbee.io turns WhatsApp into your daily sales reminder.
       </p>
 
@@ -17,8 +17,8 @@ export const MarketContext = () => (
             <div className="w-12 h-12 bg-[#EAB308]/10 text-[#EAB308] rounded-xl flex items-center justify-center mb-5">
               <item.icon className="text-xl" />
             </div>
-            <h3 className="text-lg font-black text-gray-900 mb-2">{item.title}</h3>
-            <p className="text-gray-500 text-sm font-medium leading-relaxed">{item.desc}</p>
+            <h3 className="text-md font-black text-gray-900 mb-2">{item.title}</h3>
+            <p className="text-gray-500 text-xs font-medium leading-relaxed">{item.desc}</p>
           </div>
         ))}
       </div>

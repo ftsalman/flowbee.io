@@ -3,8 +3,8 @@ import { FiCheckCircle } from 'react-icons/fi';
 import { SectionHeader } from './SectionHeader';
 
 export const LiveSimulator = () => (
-  <section className="py-24 bg-white border-b border-gray-100 px-4 md:px-8 flex flex-col lg:flex-row items-center justify-center gap-12 lg:gap-24">
-    <div className="w-full lg:w-1/2 max-w-xl text-center lg:text-left">
+  <section className="py-20 bg-white border-b border-gray-100 px-4 md:px-20 flex flex-col lg:flex-row items-center justify-center gap-12 lg:gap-24">
+    <div className="w-full lg:w-6xl max-w-6xl text-center lg:text-left">
       <SectionHeader num="Live Example" title="Broadcast Simulation" />
       <h2 className="text-4xl md:text-5xl lg:text-6xl font-black tracking-tighter mb-6 text-gray-900 leading-[1.1]">
         See the <span className="text-[#EAB308]">Engine</span> in action.
