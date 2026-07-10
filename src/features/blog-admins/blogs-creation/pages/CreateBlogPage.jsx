@@ -59,19 +59,52 @@ export const CreateBlogPage = () => {
   const [showSuccessModal, setShowSuccessModal] = useState(false);
   const [publishedBlogs, setPublishedBlogs] = useState([]);
 
+  // Helper to compress image before converting to base64
+  const compressImage = (file, maxWidth = 800, quality = 0.7) => {
+    return new Promise((resolve) => {
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        const img = new Image();
+        img.src = event.target.result;
+        img.onload = () => {
+          const canvas = document.createElement("canvas");
+          let width = img.width;
+          let height = img.height;
+
+          if (width > maxWidth) {
+            height = Math.round((height * maxWidth) / width);
+            width = maxWidth;
+          }
+
+          canvas.width = width;
+          canvas.height = height;
+          const ctx = canvas.getContext("2d");
+          ctx.drawImage(img, 0, 0, width, height);
+          resolve(canvas.toDataURL("image/jpeg", quality));
+        };
+      };
+      reader.readAsDataURL(file);
+    });
+  };
+
   // Handle local image upload from device
-  const handleImageUpload = (e, target) => {
+  const handleImageUpload = async (e, target) => {
     const file = e.target.files?.[0];
     if (!file) return;
-    const reader = new FileReader();
-    reader.onloadend = () => {
+    
+    try {
+      // Compress image to base64 to avoid Firestore 1MB document limit
+      const base64 = await compressImage(file, 800, 0.7);
+
       if (target === "cover") {
-        setImage(reader.result);
+        setImage(base64);
       } else if (target === "author") {
-        setAuthorImage(reader.result);
+        setAuthorImage(base64);
       }
-    };
-    reader.readAsDataURL(file);
+    } catch (error) {
+      console.error("Error processing image:", error);
+      alert("Failed to process image.");
+    }
   };
 
   // Load existing custom blogs from Firestore

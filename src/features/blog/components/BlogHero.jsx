@@ -26,7 +26,8 @@ export const BlogHero = ({ searchTerm, setSearchTerm }) => {
         </h1>
 
         <p className="text-lg sm:text-xl text-neutral-600 max-w-2xl mx-auto mb-10 font-normal leading-relaxed">
-          Stay up-to-date with the latest news, WhatsApp API tutorials, e-commerce automation strategies, and AI agent innovations.
+          Stay up-to-date with the latest news, WhatsApp API tutorials,
+          e-commerce automation strategies, and AI agent innovations.
         </p>
 
         {/* Interactive Search Bar */}
@@ -64,8 +65,18 @@ export const BlogHero = ({ searchTerm, setSearchTerm }) => {
                   className="!p-1.5 !bg-transparent !border-0 text-neutral-400 hover:text-neutral-600 !rounded-full hover:!bg-gray-100 transition-colors shadow-none"
                   title="Clear search"
                 >
-                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                  <svg
+                    className="w-5 h-5"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M6 18L18 6M6 6l12 12"
+                    />
                   </svg>
                 </Button>
               )}
@@ -77,16 +88,6 @@ export const BlogHero = ({ searchTerm, setSearchTerm }) => {
               </Button>
             </div>
           </div>
-        </div>
-
-        {/* Admin Action for creating new blogs */}
-        <div className="mt-8 flex justify-center">
-          <Link to="/admin/create-blog">
-            <Button size="sm" className="!bg-black !text-white !font-bold !rounded-xl !px-5 !py-2.5 hover:!bg-gray-800 transition-all shadow-sm flex items-center gap-2">
-              <span>✍️</span>
-              Create New Blog
-            </Button>
-          </Link>
         </div>
       </div>
     </section>
