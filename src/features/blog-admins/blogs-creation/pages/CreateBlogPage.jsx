@@ -7,7 +7,14 @@ import { BLOG_CATEGORIES } from "../../../../constants/blogData";
 import ReactQuill from "react-quill-new";
 import "react-quill-new/dist/quill.snow.css";
 import { db } from "../../../../config/firebase";
-import { collection, addDoc, getDocs, deleteDoc, doc, updateDoc } from "firebase/firestore";
+import {
+  collection,
+  addDoc,
+  getDocs,
+  deleteDoc,
+  doc,
+  updateDoc,
+} from "firebase/firestore";
 
 const SAMPLE_IMAGES = [
   "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1000&auto=format&fit=crop",
@@ -41,17 +48,22 @@ export const CreateBlogPage = () => {
     "Discover how leading enterprises leverage automated WhatsApp AI chatbots to qualify leads, handle customer support, and close sales 24/7 without increasing team headcount.",
   );
   const [content, setContent] = useState(
-    `<h1>The Future of Conversational Commerce</h1><p>In today's fast-paced digital landscape, customers expect instant responses. When a potential buyer reaches out on WhatsApp, waiting hours for a reply often means losing the sale to a competitor.</p><h2>Why AI Agents Are Game-Changers</h2><p>Unlike traditional static chatbots, modern AI agents powered by large language models understand context, nuance, and customer intent. They can seamlessly:</p><ul><li><strong>Answer complex product queries</strong> instantly using your knowledge base.</li><li><strong>Qualify inbound leads</strong> before routing high-value prospects to human sales reps.</li><li><strong>Process orders and check shipping status</strong> without human intervention.</li></ul><h2>Key Takeaways for Enterprise Leaders</h2><p>By deploying Flowbee's WhatsApp automation suite, businesses routinely experience a <strong>40% reduction in support response times</strong> and a <strong>3x increase in lead conversion rates</strong>. The secret lies in blending automated AI speed with human touch.</p>`
+    `<h1>The Future of Conversational Commerce</h1><p>In today's fast-paced digital landscape, customers expect instant responses. When a potential buyer reaches out on WhatsApp, waiting hours for a reply often means losing the sale to a competitor.</p><h2>Why AI Agents Are Game-Changers</h2><p>Unlike traditional static chatbots, modern AI agents powered by large language models understand context, nuance, and customer intent. They can seamlessly:</p><ul><li><strong>Answer complex product queries</strong> instantly using your knowledge base.</li><li><strong>Qualify inbound leads</strong> before routing high-value prospects to human sales reps.</li><li><strong>Process orders and check shipping status</strong> without human intervention.</li></ul><h2>Key Takeaways for Enterprise Leaders</h2><p>By deploying Flowbee's WhatsApp automation suite, businesses routinely experience a <strong>40% reduction in support response times</strong> and a <strong>3x increase in lead conversion rates</strong>. The secret lies in blending automated AI speed with human touch.</p>`,
   );
 
   const quillModules = {
     toolbar: [
-      [{ 'header': [1, 2, 3, false] }],
-      ['bold', 'italic', 'underline', 'strike', 'blockquote'],
-      [{ 'list': 'ordered' }, { 'list': 'bullet' }, { 'indent': '-1' }, { 'indent': '+1' }],
-      ['link', 'image'],
-      ['clean']
-    ]
+      [{ header: [1, 2, 3, false] }],
+      ["bold", "italic", "underline", "strike", "blockquote"],
+      [
+        { list: "ordered" },
+        { list: "bullet" },
+        { indent: "-1" },
+        { indent: "+1" },
+      ],
+      ["link", "image"],
+      ["clean"],
+    ],
   };
 
   const [activeTab, setActiveTab] = useState("editor"); // 'editor' | 'preview-card' | 'preview-article'
@@ -92,7 +104,7 @@ export const CreateBlogPage = () => {
   const handleImageUpload = async (e, target) => {
     const file = e.target.files?.[0];
     if (!file) return;
-    
+
     try {
       // Compress image to base64 to avoid Firestore 1MB document limit
       const base64 = await compressImage(file, 800, 0.7);
@@ -113,12 +125,14 @@ export const CreateBlogPage = () => {
     const fetchBlogs = async () => {
       try {
         const querySnapshot = await getDocs(collection(db, "posts"));
-        const blogsData = querySnapshot.docs.map(doc => ({
+        const blogsData = querySnapshot.docs.map((doc) => ({
           id: doc.id,
-          ...doc.data()
+          ...doc.data(),
         }));
         // Sort newest first
-        blogsData.sort((a, b) => new Date(b.createdAt || 0) - new Date(a.createdAt || 0));
+        blogsData.sort(
+          (a, b) => new Date(b.createdAt || 0) - new Date(a.createdAt || 0),
+        );
         setPublishedBlogs(blogsData);
       } catch (error) {
         console.error("Error fetching blogs from Firestore:", error);
@@ -179,7 +193,7 @@ export const CreateBlogPage = () => {
       if (editingId) {
         await updateDoc(doc(db, "posts", editingId), blogData);
         const updatedBlogs = publishedBlogs.map((b) =>
-          b.id === editingId ? { ...b, ...blogData } : b
+          b.id === editingId ? { ...b, ...blogData } : b,
         );
         setPublishedBlogs(updatedBlogs);
       } else {
@@ -188,13 +202,15 @@ export const CreateBlogPage = () => {
         const publishedPost = { ...blogData, id: docRef.id };
         setPublishedBlogs([publishedPost, ...publishedBlogs]);
       }
-      
+
       setIsPublishing(false);
       setShowSuccessModal(true);
     } catch (error) {
       console.error("Error saving blog to Firestore: ", error);
       setIsPublishing(false);
-      alert("Failed to publish blog. Please check your connection and Firebase configuration.");
+      alert(
+        "Failed to publish blog. Please check your connection and Firebase configuration.",
+      );
     }
   };
 
@@ -484,11 +500,18 @@ export const CreateBlogPage = () => {
                   {isPublishing ? (
                     <>
                       <span className="w-4 h-4 border-2 border-black border-t-transparent rounded-full animate-spin" />
-                      <span>{editingId ? "Updating..." : "Broadcasting..."}</span>
+                      <span>
+                        {editingId ? "Updating..." : "Broadcasting..."}
+                      </span>
                     </>
                   ) : (
                     <>
-                      <span>✨ {editingId ? "Update Blog Article" : "Publish Blog Article"}</span>
+                      <span>
+                        ✨{" "}
+                        {editingId
+                          ? "Update Blog Article"
+                          : "Publish Blog Article"}
+                      </span>
                     </>
                   )}
                 </Button>
@@ -704,8 +727,9 @@ export const CreateBlogPage = () => {
               {editingId ? "Article Updated!" : "Article Published Live!"}
             </h3>
             <p className="text-sm text-neutral-600 mb-6">
-              Your article <strong className="text-black">"{title}"</strong>{" "}
-              has been successfully {editingId ? "updated on" : "broadcast to"} the Flowbee blog grid.
+              Your article <strong className="text-black">"{title}"</strong> has
+              been successfully {editingId ? "updated on" : "broadcast to"} the
+              Flowbee blog grid.
             </p>
             <div className="space-y-3">
               <Link to="/" className="block w-full">
