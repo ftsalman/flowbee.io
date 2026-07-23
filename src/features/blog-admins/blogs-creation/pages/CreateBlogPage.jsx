@@ -1,5 +1,23 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
+import { 
+  FiFeather, 
+  FiEdit, 
+  FiEye, 
+  FiFileText, 
+  FiBookOpen, 
+  FiZap, 
+  FiCamera, 
+  FiUpload, 
+  FiSend, 
+  FiArrowLeft, 
+  FiArrowRight, 
+  FiInbox, 
+  FiEdit2, 
+  FiTrash2, 
+  FiCheckCircle, 
+  FiExternalLink 
+} from "react-icons/fi";
 import { InputBox } from "../../../../../lib/turtle-ui/components/input-box/InputBox";
 import { Button } from "../../../../../lib/turtle-ui/components/button/Button";
 import { BlogCard } from "../../../blog/components/BlogCard";
@@ -247,7 +265,8 @@ export const CreateBlogPage = () => {
 
         <div>
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#FFD400]/20 text-neutral-900 border border-[#FFD400]/50 text-xs font-bold uppercase tracking-wider mb-2">
-            <span>🚀 Content Studio</span>
+            <FiFeather size={12} />
+            <span>Content Studio</span>
           </div>
           <h1 className="text-2xl sm:text-3xl font-extrabold text-neutral-900 tracking-tight">
             {editingId ? "Edit Blog Article" : "Publish New Blog Article"}
@@ -269,7 +288,7 @@ export const CreateBlogPage = () => {
                 : "!bg-transparent text-neutral-600 hover:text-black"
             }`}
           >
-            <span>📝</span>
+            <FiEdit size={12} />
             <span>Editor</span>
           </Button>
           <Button
@@ -281,7 +300,7 @@ export const CreateBlogPage = () => {
                 : "!bg-transparent text-neutral-600 hover:text-black"
             }`}
           >
-            <span>👁️</span>
+            <FiEye size={12} />
             <span className="hidden sm:inline">Live Card Preview</span>
             <span className="sm:hidden">Card</span>
           </Button>
@@ -294,7 +313,7 @@ export const CreateBlogPage = () => {
                 : "!bg-transparent text-neutral-600 hover:text-black"
             }`}
           >
-            <span>📄</span>
+            <FiFileText size={12} />
             <span className="hidden sm:inline">Full Article Preview</span>
             <span className="sm:hidden">Article</span>
           </Button>
@@ -311,7 +330,8 @@ export const CreateBlogPage = () => {
           <div className="lg:col-span-2 space-y-6">
             <div className="bg-white rounded-3xl p-6 sm:p-8 border border-gray-200 shadow-sm space-y-6">
               <h2 className="text-lg font-bold text-neutral-900 border-b border-gray-100 pb-3 flex items-center gap-2">
-                <span>📑 Article Overview</span>
+                <FiFileText className="text-[#CA8A04]" />
+                <span>Article Overview</span>
               </h2>
 
               <div>
@@ -370,7 +390,8 @@ export const CreateBlogPage = () => {
             {/* Publishing Box */}
             <div className="bg-white rounded-3xl p-6 border border-gray-200 shadow-sm space-y-5">
               <h2 className="text-lg font-bold text-neutral-900 border-b border-gray-100 pb-3 flex items-center gap-2">
-                <span>⚡ Publish Controls</span>
+                <FiZap className="text-[#CA8A04]" />
+                <span>Publish Controls</span>
               </h2>
 
               <div>
@@ -427,8 +448,9 @@ export const CreateBlogPage = () => {
                         (author || "A")[0]
                       )}
                     </div>
-                    <label className="flex-1 bg-gray-50 hover:bg-gray-100 border border-dashed border-gray-300 rounded-xl px-2 py-1.5 text-[11px] font-bold text-neutral-700 cursor-pointer flex items-center justify-center gap-1 transition-all shadow-sm active:scale-95">
-                      <span>📷 Profile Image</span>
+                    <label className="flex-1 bg-gray-50 hover:bg-gray-100 border border-dashed border-gray-300 rounded-xl px-2 py-1.5 text-[11px] font-bold text-neutral-700 cursor-pointer flex items-center justify-center gap-1.5 transition-all shadow-sm active:scale-95">
+                      <FiCamera size={12} />
+                      <span>Profile Image</span>
                       <input
                         type="file"
                         accept="image/*"
@@ -445,8 +467,9 @@ export const CreateBlogPage = () => {
                   <label className="block text-xs font-bold text-neutral-700 uppercase tracking-wider">
                     Cover Image URL
                   </label>
-                  <label className="bg-[#FFD400] hover:bg-[#E6BF00] text-black border border-[#CA8A04] rounded-lg px-2.5 py-1 text-[11px] font-extrabold cursor-pointer flex items-center gap-1 transition-all shadow-sm active:scale-95">
-                    <span>📁 Upload from Device</span>
+                  <label className="bg-[#FFD400] hover:bg-[#E6BF00] text-black border border-[#CA8A04] rounded-lg px-2.5 py-1 text-[11px] font-extrabold cursor-pointer flex items-center gap-1.5 transition-all shadow-sm active:scale-95">
+                    <FiUpload size={12} />
+                    <span>Upload from Device</span>
                     <input
                       type="file"
                       accept="image/*"
@@ -506,8 +529,8 @@ export const CreateBlogPage = () => {
                     </>
                   ) : (
                     <>
+                      <FiSend size={14} />
                       <span>
-                        ✨{" "}
                         {editingId
                           ? "Update Blog Article"
                           : "Publish Blog Article"}
@@ -578,9 +601,10 @@ export const CreateBlogPage = () => {
           </div>
           <Button
             onClick={() => setActiveTab("editor")}
-            className="!bg-black text-white !font-bold !rounded-xl !px-6 !py-2.5"
+            className="!bg-black text-white !font-bold !rounded-xl !px-6 !py-2.5 flex items-center gap-1.5 mx-auto"
           >
-            ← Back to Editor
+            <FiArrowLeft size={14} />
+            <span>Back to Editor</span>
           </Button>
         </div>
       ) : (
@@ -621,9 +645,10 @@ export const CreateBlogPage = () => {
           <div className="pt-8 border-t border-gray-200 text-center">
             <Button
               onClick={() => setActiveTab("editor")}
-              className="!bg-[#FFD400] text-black !font-extrabold !rounded-xl !px-8 !py-3 shadow-[3px_3px_0px_0px_#C9A000]"
+              className="!bg-[#FFD400] text-black !font-extrabold !rounded-xl !px-8 !py-3 shadow-[3px_3px_0px_0px_#C9A000] flex items-center gap-1.5 mx-auto"
             >
-              ← Return to Editor
+              <FiArrowLeft size={14} />
+              <span>Return to Editor</span>
             </Button>
           </div>
         </div>
@@ -645,16 +670,17 @@ export const CreateBlogPage = () => {
           <Link to="/">
             <Button
               size="md"
-              className="!bg-[#FFD400] hover:!bg-[#E6BF00] !text-black !font-extrabold !rounded-xl !px-4 !py-2 shadow-[2px_2px_0px_0px_#C9A000] transition-all"
+              className="!bg-[#FFD400] hover:!bg-[#E6BF00] !text-black !font-extrabold !rounded-xl !px-4 !py-2 shadow-[2px_2px_0px_0px_#C9A000] transition-all flex items-center gap-1.5"
             >
-              View All Live →
+              <span>View All Live</span>
+              <FiArrowRight size={14} />
             </Button>
           </Link>
         </div>
 
         {publishedBlogs.length === 0 ? (
           <div className="text-center py-12 bg-gray-50/50 rounded-2xl border border-dashed border-gray-200">
-            <div className="text-3xl mb-2">📭</div>
+            <div className="text-neutral-400 mb-2 flex justify-center"><FiInbox size={32} /></div>
             <h4 className="font-bold text-neutral-800">
               No custom blogs published yet
             </h4>
@@ -697,16 +723,18 @@ export const CreateBlogPage = () => {
                     <Button
                       type="button"
                       onClick={() => handleEditBlog(post)}
-                      className="!bg-transparent !text-xs !font-bold !text-blue-600 hover:!text-blue-700 hover:underline !px-2 !py-1 !rounded hover:!bg-blue-50 transition-all shadow-none"
+                      className="!bg-transparent !text-xs !font-bold !text-blue-600 hover:!text-blue-700 hover:underline !px-2 !py-1 !rounded hover:!bg-blue-50 transition-all shadow-none flex items-center gap-1"
                     >
-                      ✏️ Edit
+                      <FiEdit2 size={12} />
+                      <span>Edit</span>
                     </Button>
                     <Button
                       type="button"
                       onClick={() => handleDeleteBlog(post.id)}
-                      className="!bg-transparent !text-xs !font-bold !text-red-600 hover:!text-red-700 hover:underline !px-2 !py-1 !rounded hover:!bg-red-50 transition-all shadow-none"
+                      className="!bg-transparent !text-xs !font-bold !text-red-600 hover:!text-red-700 hover:underline !px-2 !py-1 !rounded hover:!bg-red-50 transition-all shadow-none flex items-center gap-1"
                     >
-                      🗑️ Delete
+                      <FiTrash2 size={12} />
+                      <span>Delete</span>
                     </Button>
                   </div>
                 </div>
@@ -720,8 +748,8 @@ export const CreateBlogPage = () => {
       {showSuccessModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4 animate-fadeIn">
           <div className="bg-white rounded-3xl p-8 max-w-md w-full text-center border-2 border-[#FFD400] shadow-2xl relative">
-            <div className="w-16 h-16 bg-[#FFD400]/20 rounded-full flex items-center justify-center mx-auto mb-4 text-3xl animate-bounce">
-              🎉
+            <div className="w-16 h-16 bg-[#FFD400]/20 rounded-full flex items-center justify-center mx-auto mb-4 text-neutral-800 animate-bounce">
+              <FiCheckCircle size={32} className="text-[#CA8A04]" />
             </div>
             <h3 className="text-2xl font-black text-neutral-900 mb-2">
               {editingId ? "Article Updated!" : "Article Published Live!"}
@@ -733,8 +761,9 @@ export const CreateBlogPage = () => {
             </p>
             <div className="space-y-3">
               <Link to="/" className="block w-full">
-                <Button className="w-full !bg-[#FFD400] hover:!bg-[#E6BF00] !text-black !font-extrabold !py-3 !rounded-xl shadow-[3px_3px_0px_0px_#C9A000]">
-                  🌐 View Live on Homepage
+                <Button className="w-full !bg-[#FFD400] hover:!bg-[#E6BF00] !text-black !font-extrabold !py-3 !rounded-xl shadow-[3px_3px_0px_0px_#C9A000] flex items-center justify-center gap-1.5">
+                  <FiExternalLink size={14} />
+                  <span>View Live on Homepage</span>
                 </Button>
               </Link>
               <Button

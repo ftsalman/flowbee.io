@@ -9,6 +9,18 @@ import {
 } from "../../../constants/blogData";
 import { db } from "../../../config/firebase";
 import { collection, getDocs } from "firebase/firestore";
+import { 
+  FiArrowLeft, 
+  FiLink, 
+  FiCheck, 
+  FiTwitter, 
+  FiLinkedin, 
+  FiCalendar, 
+  FiClock, 
+  FiThumbsUp, 
+  FiThumbsDown, 
+  FiInbox 
+} from "react-icons/fi";
 
 export const BlogReadPage = () => {
   const { id } = useParams();
@@ -79,8 +91,8 @@ export const BlogReadPage = () => {
   if (!post) {
     return (
       <div className="min-h-[70vh] flex flex-col items-center justify-center px-4 py-20 text-center bg-[#FAFBFD]">
-        <div className="w-20 h-20 bg-[#FFD400]/20 rounded-full flex items-center justify-center text-4xl mb-6 shadow-sm">
-          📭
+        <div className="w-20 h-20 bg-[#FFD400]/20 rounded-full flex items-center justify-center text-3xl mb-6 shadow-sm text-neutral-800">
+          <FiInbox size={32} />
         </div>
         <h1 className="text-3xl font-extrabold text-neutral-900 mb-3">
           Article Not Found
@@ -131,9 +143,9 @@ The future belongs to agile organizations that combine artificial intelligence w
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 h-14 flex items-center justify-between">
           <Link
             to="/blog"
-            className="inline-flex items-center gap-1 sm:gap-2 text-xs font-bold text-neutral-600 hover:text-black transition-colors"
+            className="inline-flex items-center gap-1.5 sm:gap-2 text-xs font-bold text-neutral-600 hover:text-black transition-colors"
           >
-            <span>←</span> 
+            <FiArrowLeft size={14} /> 
             <span className="hidden sm:inline">Back to All Articles</span>
             <span className="sm:hidden">Back</span>
           </Link>
@@ -144,26 +156,27 @@ The future belongs to agile organizations that combine artificial intelligence w
               onClick={handleCopyLink}
               className="!px-3 !py-1.5 !rounded-lg !border !border-gray-300 !bg-white hover:!bg-gray-50 !text-xs !font-bold !text-neutral-700 flex items-center gap-1.5 shadow-sm transition-all active:scale-95 cursor-pointer"
             >
-              <span>{copied ? "✅ Copied!" : "🔗"}</span>
+              {copied ? <FiCheck className="text-green-600" size={14} /> : <FiLink size={14} />}
+              <span>{copied ? "Copied!" : ""}</span>
               <span className="hidden sm:inline">{copied ? "" : "Copy Link"}</span>
             </Button>
             <a
               href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(post.title)}&url=${encodeURIComponent(window.location.href)}`}
               target="_blank"
               rel="noreferrer"
-              className="p-1.5 rounded-lg border border-gray-300 bg-white hover:bg-gray-50 text-neutral-700 shadow-sm transition-all"
+              className="p-1.5 rounded-lg border border-gray-300 bg-white hover:bg-gray-50 text-neutral-700 shadow-sm transition-all flex items-center justify-center"
               title="Share on X / Twitter"
             >
-              🐦
+              <FiTwitter size={14} />
             </a>
             <a
               href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(window.location.href)}`}
               target="_blank"
               rel="noreferrer"
-              className="p-1.5 rounded-lg border border-gray-300 bg-white hover:bg-gray-50 text-neutral-700 shadow-sm transition-all"
+              className="p-1.5 rounded-lg border border-gray-300 bg-white hover:bg-gray-50 text-neutral-700 shadow-sm transition-all flex items-center justify-center"
               title="Share on LinkedIn"
             >
-              💼
+              <FiLinkedin size={14} />
             </a>
           </div>
         </div>
@@ -202,12 +215,12 @@ The future belongs to agile organizations that combine artificial intelligence w
           </div>
           <span className="hidden sm:inline text-gray-300">•</span>
           <div className="flex items-center gap-1.5 text-neutral-700">
-            <span>📅</span>
+            <FiCalendar size={14} className="text-[#CA8A04]" />
             <span className="font-semibold">{post.date || "July 3, 2026"}</span>
           </div>
           <span className="hidden sm:inline text-gray-300">•</span>
           <div className="flex items-center gap-1.5 text-neutral-700">
-            <span>⏱️</span>
+            <FiClock size={14} className="text-[#CA8A04]" />
             <span className="font-semibold">{post.readTime || "5 min read"}</span>
           </div>
         </div>
@@ -255,7 +268,7 @@ The future belongs to agile organizations that combine artificial intelligence w
                 <ul key={idx} className="space-y-3 pl-2 my-6">
                   {items.map((item, i) => (
                     <li key={i} className="flex items-start gap-3">
-                      <span className="text-[#CA8A04] font-bold mt-1">✔</span>
+                      <FiCheck className="text-[#CA8A04] mt-1 flex-shrink-0" size={16} />
                       <span
                         className="text-neutral-700"
                         dangerouslySetInnerHTML={{
@@ -314,7 +327,7 @@ The future belongs to agile organizations that combine artificial intelligence w
                   : "!bg-white !text-neutral-700 !border-gray-300 hover:!bg-gray-50 shadow-sm"
               }`}
             >
-              <span>👍</span>
+              <FiThumbsUp size={16} />
               <span>Yes, valuable!</span>
             </Button>
             <Button
@@ -325,7 +338,7 @@ The future belongs to agile organizations that combine artificial intelligence w
                   : "!bg-white !text-neutral-700 !border-gray-300 hover:!bg-gray-50 shadow-sm"
               }`}
             >
-              <span>👎</span>
+              <FiThumbsDown size={16} />
               <span>Needs improvement</span>
             </Button>
           </div>
