@@ -19,6 +19,7 @@ import { WhatsAppGuidelinesPage } from "../features/whatsApp-guidelines/page/Wha
 import { PrivacypolicyPage } from "../features/privacy-policy/page/PrivacypolicyPage";
 import { TermsConditionsPage } from "../features/terms-conditions/page/TermsConditionsPage";
 import { GlobalPricingPage } from "../features/global-pricing/page/GlobalPricingPage";
+import { SupportPage } from "../features/Support/page/SupportPage";
 
 export const router = createBrowserRouter([
   {
@@ -89,7 +90,10 @@ export const router = createBrowserRouter([
       {
         path:"global-pricing",
          element:<GlobalPricingPage/>
-
+      },
+      {
+        path: "support",
+        element: <SupportPage />,
       },
     ],
   },

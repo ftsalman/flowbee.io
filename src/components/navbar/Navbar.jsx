@@ -196,14 +196,12 @@ export const Navbar = () => {
           {/* Center: Navigation Links */}
           <nav className="hidden md:flex items-center justify-center flex-auto gap-7">
             {NavList.map((item) => renderNavItem(item))}
-             <a 
-              href="https://support.flowbee.io/" 
-              target="_blank" 
-              rel="noopener noreferrer"
+            <Link 
+              to="/support" 
               className="text-sm font-medium text-black hover:text-gray-500 transition-colors"
             >
               Support
-            </a>
+            </Link>
           </nav>
 
           {/* Right: Action Buttons and Mobile Menu Toggle */}
@@ -258,15 +256,13 @@ export const Navbar = () => {
         >
           <div className="px-4 pt-2 pb-4 space-y-1">
             {NavList.map((item) => renderMobileNavItem(item))}
-            <a
-              href="https://support.flowbee.io/"
-              target="_blank"
-              rel="noopener noreferrer"
+            <Link
+              to="/support"
               className="block py-2 text-sm font-medium text-neutral-800"
               onClick={() => setIsMobileMenuOpen(false)}
             >
               Support
-            </a>
+            </Link>
             <div className="pt-4 mt-2 border-t border-gray-100 flex flex-row gap-3">
               <a
                 href="https://app.flowbee.io/auth/login"

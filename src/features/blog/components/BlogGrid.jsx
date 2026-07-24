@@ -9,6 +9,7 @@ import {
 } from "../../../constants/blogData";
 import { db } from "../../../config/firebase";
 import { collection, getDocs } from "firebase/firestore";
+import { getStoredBlogs } from "../../blog-admins/blogs-creation/utils/blogStorage";
 
 export const BlogGrid = ({ searchTerm }) => {
   const [activeCategory, setActiveCategory] = useState("all");
@@ -16,19 +17,34 @@ export const BlogGrid = ({ searchTerm }) => {
 
   useEffect(() => {
     const fetchBlogs = async () => {
+      let localPosts = [];
+      let firestorePosts = [];
+
+      try {
+        localPosts = await getStoredBlogs();
+      } catch (error) {
+        console.error("Error fetching locally published blogs:", error);
+      }
+
       try {
         const querySnapshot = await getDocs(collection(db, "posts"));
-        const blogsData = querySnapshot.docs.map(doc => ({
+        firestorePosts = querySnapshot.docs.map(doc => ({
           id: doc.id,
           ...doc.data()
         }));
-        // Sort newest first
-        blogsData.sort((a, b) => new Date(b.createdAt || 0) - new Date(a.createdAt || 0));
-        setCustomPosts(blogsData);
       } catch (error) {
         console.error("Error fetching blogs from Firestore:", error);
-        setCustomPosts([]);
       }
+
+      const uniquePosts = [...localPosts, ...firestorePosts].filter(
+        (post, index, posts) =>
+          posts.findIndex((candidate) => String(candidate.id) === String(post.id)) === index
+      );
+      uniquePosts.sort(
+        (a, b) =>
+          new Date(b.createdAt || b.date || 0) - new Date(a.createdAt || a.date || 0)
+      );
+      setCustomPosts(uniquePosts);
     };
 
     fetchBlogs();

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useParams, Link, useNavigate } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import { Button } from "../../../../lib/turtle-ui/components/button/Button";
 import { BlogCard } from "../../blog/components/BlogCard";
 import {
@@ -9,6 +9,7 @@ import {
 } from "../../../constants/blogData";
 import { db } from "../../../config/firebase";
 import { collection, getDocs } from "firebase/firestore";
+import { getStoredBlogs } from "../../blog-admins/blogs-creation/utils/blogStorage";
 import { 
   FiArrowLeft, 
   FiLink, 
@@ -24,7 +25,6 @@ import {
 
 export const BlogReadPage = () => {
   const { id } = useParams();
-  const navigate = useNavigate();
   const [post, setPost] = useState(null);
   const [relatedPosts, setRelatedPosts] = useState([]);
   const [copied, setCopied] = useState(false);
@@ -35,15 +35,29 @@ export const BlogReadPage = () => {
     setHelpfulState(null);
 
     const fetchPosts = async () => {
+      let localPosts = [];
+      let firestorePosts = [];
+
+      try {
+        localPosts = await getStoredBlogs();
+      } catch (error) {
+        console.error("Error fetching locally published blogs:", error);
+      }
+
       try {
         const querySnapshot = await getDocs(collection(db, "posts"));
-        const customPosts = querySnapshot.docs.map(doc => ({
+        firestorePosts = querySnapshot.docs.map(doc => ({
           id: doc.id,
           ...doc.data()
         }));
+      } catch (error) {
+        console.error("Error fetching blogs from Firestore:", error);
+      }
 
+      try {
         const allAvailablePosts = [
-          ...customPosts,
+          ...localPosts,
+          ...firestorePosts,
           ...LATEST_POSTS,
           ...TRENDING_POSTS,
           ...ALL_POSTS,
@@ -74,7 +88,7 @@ export const BlogReadPage = () => {
           setPost(null);
         }
       } catch (error) {
-        console.error("Error fetching blogs from Firestore:", error);
+        console.error("Error preparing blog article:", error);
         setPost(null);
       }
     };
@@ -240,7 +254,12 @@ The future belongs to agile organizations that combine artificial intelligence w
       {/* Article Body Prose */}
       <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="prose max-w-none text-neutral-800 space-y-6 text-lg leading-relaxed font-normal break-words overflow-hidden">
-          {displayContent.split("\n\n").map((para, idx) => {
+          {/<\/?[a-z][\s\S]*>/i.test(displayContent) ? (
+            <div
+              className="[&_iframe]:aspect-video [&_iframe]:w-full [&_iframe]:rounded-xl [&_video]:w-full [&_video]:rounded-xl"
+              dangerouslySetInnerHTML={{ __html: displayContent }}
+            />
+          ) : displayContent.split("\n\n").map((para, idx) => {
             if (para.trim().startsWith("# ")) {
               return (
                 <h2
