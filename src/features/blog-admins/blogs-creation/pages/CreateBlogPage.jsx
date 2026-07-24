@@ -8,6 +8,11 @@ import { BlogFullPreview } from "../components/BlogFullPreview";
 import { PublishedBlogsGrid } from "../components/PublishedBlogsGrid";
 import { PublishSuccessModal } from "../components/PublishSuccessModal";
 import { getStoredBlogs, saveStoredBlogs } from "../utils/blogStorage";
+import {
+  deleteBlogFromFirebase,
+  getFirebaseBlogs,
+  saveBlogToFirebase,
+} from "../utils/firebaseBlogStorage";
 
 const SAMPLE_IMAGES = [
   "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1000&auto=format&fit=crop",
@@ -51,27 +56,28 @@ export const CreateBlogPage = () => {
   const [publishedBlogs, setPublishedBlogs] = useState([]);
   const [editingId, setEditingId] = useState(null);
 
-  // Load blogs from IndexedDB and migrate any existing localStorage data.
+  // Load Firebase blogs, using IndexedDB as a local cache and migration source.
   useEffect(() => {
     const loadBlogs = async () => {
       try {
-        const indexedBlogs = await getStoredBlogs();
-        if (indexedBlogs.length > 0) {
-          setPublishedBlogs(indexedBlogs);
-          return;
-        }
+        const [firebaseBlogs, indexedBlogs] = await Promise.all([
+          getFirebaseBlogs(),
+          getStoredBlogs(),
+        ]);
 
         const legacyData = localStorage.getItem("flowbee_custom_blogs");
-        if (!legacyData) return;
+        const legacyBlogs = legacyData ? JSON.parse(legacyData) : [];
+        const combinedBlogs = [...firebaseBlogs, ...indexedBlogs, ...legacyBlogs].filter(
+          (blog, index, blogs) =>
+            blogs.findIndex((candidate) => String(candidate.id) === String(blog.id)) === index
+        );
 
-        const legacyBlogs = JSON.parse(legacyData);
-        if (Array.isArray(legacyBlogs)) {
-          await saveStoredBlogs(legacyBlogs);
-          setPublishedBlogs(legacyBlogs);
-        }
+        setPublishedBlogs(combinedBlogs);
+        await saveStoredBlogs(combinedBlogs);
       } catch (error) {
         console.error("Unable to load saved blogs:", error);
-        setPublishedBlogs([]);
+        const indexedBlogs = await getStoredBlogs().catch(() => []);
+        setPublishedBlogs(indexedBlogs);
       }
     };
 
@@ -123,12 +129,22 @@ export const CreateBlogPage = () => {
           updatedBlogs = [newBlogPost, ...publishedBlogs];
         }
 
-        await saveStoredBlogs(updatedBlogs);
-        setPublishedBlogs(updatedBlogs);
+        const blogToSave = editingId
+          ? updatedBlogs.find((blog) => String(blog.id) === String(editingId))
+          : updatedBlogs[0];
+        const firebaseBlog = await saveBlogToFirebase(blogToSave);
+        const persistedBlogs = updatedBlogs.map((blog) =>
+          String(blog.id) === String(firebaseBlog.id) ? firebaseBlog : blog
+        );
+
+        await saveStoredBlogs(persistedBlogs);
+        setPublishedBlogs(persistedBlogs);
         setShowSuccessModal(true);
       } catch (error) {
         console.error("Unable to save blog:", error);
-        window.alert("The blog could not be saved. Please try a smaller video or free up browser storage.");
+        window.alert(
+          "The blog could not be saved to Firebase. Check your Firestore/Storage rules and Firebase configuration."
+        );
       } finally {
         setIsPublishing(false);
       }
@@ -152,6 +168,7 @@ export const CreateBlogPage = () => {
   const handleDeleteBlog = async (id) => {
     const updated = publishedBlogs.filter((b) => b.id !== id);
     try {
+      await deleteBlogFromFirebase(id);
       await saveStoredBlogs(updated);
       setPublishedBlogs(updated);
     } catch (error) {
