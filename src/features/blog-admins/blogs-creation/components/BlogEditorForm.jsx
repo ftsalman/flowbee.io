@@ -35,6 +35,10 @@ class UploadedVideoBlot extends BlockEmbed {
 
 Quill.register(UploadedVideoBlot);
 
+import { ImageUploader } from "./ImageUploader";
+import { VideoUploader } from "./VideoUploader";
+import { uploadToCloudinary } from "../utils/cloudinary";
+
 export const BlogEditorForm = ({
   title,
   setTitle,
@@ -95,22 +99,25 @@ export const BlogEditorForm = ({
     reader.readAsDataURL(file);
   };
 
-  const handleVideoUpload = (e) => {
+  const handleVideoUpload = async (e) => {
     const file = e.target.files?.[0];
     if (!file) return;
 
-    const reader = new FileReader();
-    reader.onloadend = () => {
+    try {
+      const url = await uploadToCloudinary(file, 'video');
       const editor = quillRef.current?.getEditor();
       if (!editor) return;
 
       const range = editor.getSelection(true);
-      editor.insertEmbed(range.index, "uploadedVideo", reader.result, "user");
+      editor.insertEmbed(range.index, "uploadedVideo", url, "user");
       editor.insertText(range.index + 1, "\n", "user");
       editor.setSelection(range.index + 2, 0, "silent");
+    } catch (err) {
+      console.error("Video upload failed", err);
+      alert("Failed to upload video");
+    } finally {
       e.target.value = "";
-    };
-    reader.readAsDataURL(file);
+    }
   };
 
   const getYoutubeEmbedUrl = (value) => {
@@ -326,49 +333,21 @@ export const BlogEditorForm = ({
                 placeholder="Flowbee Team"
                 className="w-full !rounded-xl !py-2.5 !px-3 !border-gray-300 font-medium text-xs mb-2"
               />
-              {/* Author Profile Image / Upload */}
-              <div className="flex items-center gap-2 mt-2">
-                <div className="w-8 h-8 rounded-full bg-[#FFD400] flex items-center justify-center font-bold text-black text-xs overflow-hidden border border-gray-300 shadow-sm flex-shrink-0">
-                  {authorImage ? (
-                    <img src={authorImage} alt="Avatar" className="w-full h-full object-cover" />
-                  ) : (
-                    (author || "A")[0]
-                  )}
-                </div>
-                <label className="flex-1 bg-gray-50 hover:bg-gray-100 border border-dashed border-gray-300 rounded-xl px-2 py-1.5 text-[11px] font-bold text-neutral-700 cursor-pointer flex items-center justify-center gap-1 transition-all shadow-sm active:scale-95">
-                  <span>📷 Profile</span>
-                  <input
-                    type="file"
-                    accept="image/*"
-                    onChange={(e) => handleImageUpload(e, "author")}
-                    className="hidden"
-                  />
-                </label>
-              </div>
+              <ImageUploader 
+                value={authorImage} 
+                onChange={setAuthorImage} 
+                placeholder="Author Image" 
+              />
             </div>
           </div>
 
           <div>
-            <div className="flex items-center justify-between mb-2">
-              <label className="block text-xs font-bold text-neutral-700 uppercase tracking-wider">
-                Cover Image URL
-              </label>
-              <label className="bg-[#FFD400] hover:bg-[#E6BF00] text-black border border-[#CA8A04] rounded-lg px-2.5 py-1 text-[11px] font-extrabold cursor-pointer flex items-center gap-1 transition-all shadow-sm active:scale-95">
-                <span>📁 Upload</span>
-                <input
-                  type="file"
-                  accept="image/*"
-                  onChange={(e) => handleImageUpload(e, "cover")}
-                  className="hidden"
-                />
-              </label>
-            </div>
-            <InputBox
-              type="text"
-              value={image}
-              onChange={(e) => setImage(e.target.value)}
-              placeholder="https://..."
-              className="w-full !rounded-xl !py-3 !px-4 !border-gray-300 font-mono text-xs mb-3"
+            <ImageUploader 
+              label="Cover Image" 
+              value={image} 
+              onChange={setImage} 
+              placeholder="Drag and drop a cover image here"
+              className="mb-3"
             />
 
             {/* Quick Sample Image Selector */}

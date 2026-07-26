@@ -1,32 +1,33 @@
 import { collection, deleteDoc, doc, getDocs, setDoc } from "firebase/firestore";
-import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
-import { db, storage } from "../../../../config/firebase";
+import { db } from "../../../../config/firebase";
+import { uploadToCloudinary } from "./cloudinary";
 
-const uploadDataUrl = async (dataUrl, blogId, fileName) => {
+const uploadDataUrl = async (dataUrl) => {
   if (!dataUrl?.startsWith("data:")) return dataUrl;
 
-  const response = await fetch(dataUrl);
-  const blob = await response.blob();
-  const extension = blob.type.split("/")[1]?.split("+")[0] || "bin";
-  const storageRef = ref(storage, `blog-media/${blogId}/${fileName}.${extension}`);
+  let resourceType = 'auto';
+  if (dataUrl.startsWith("data:video")) {
+    resourceType = 'video';
+  } else if (dataUrl.startsWith("data:image")) {
+    resourceType = 'image';
+  }
 
-  await uploadBytes(storageRef, blob, { contentType: blob.type });
-  return getDownloadURL(storageRef);
+  return await uploadToCloudinary(dataUrl, resourceType);
 };
 
-const uploadArticleMedia = async (content, blogId) => {
+const uploadArticleMedia = async (content) => {
   if (!content || typeof DOMParser === "undefined") return content;
 
   const document = new DOMParser().parseFromString(content, "text/html");
   const mediaElements = [...document.body.querySelectorAll("img[src^='data:'], video[src^='data:']")];
 
   await Promise.all(
-    mediaElements.map(async (element, index) => {
-      const url = await uploadDataUrl(
-        element.getAttribute("src"),
-        blogId,
-        `article-${element.tagName.toLowerCase()}-${index}`
-      );
+    mediaElements.map(async (element) => {
+      let resourceType = 'auto';
+      if (element.tagName.toLowerCase() === 'video') resourceType = 'video';
+      else if (element.tagName.toLowerCase() === 'img') resourceType = 'image';
+
+      const url = await uploadToCloudinary(element.getAttribute("src"), resourceType);
       element.setAttribute("src", url);
     })
   );
@@ -37,9 +38,9 @@ const uploadArticleMedia = async (content, blogId) => {
 export const saveBlogToFirebase = async (blog) => {
   const blogId = String(blog.id);
   const [image, authorImage, content] = await Promise.all([
-    uploadDataUrl(blog.image, blogId, "cover"),
-    uploadDataUrl(blog.authorImage, blogId, "author"),
-    uploadArticleMedia(blog.content, blogId),
+    uploadDataUrl(blog.image),
+    uploadDataUrl(blog.authorImage),
+    uploadArticleMedia(blog.content),
   ]);
 
   const storedBlog = {
@@ -65,4 +66,3 @@ export const getFirebaseBlogs = async () => {
 };
 
 export const deleteBlogFromFirebase = (id) => deleteDoc(doc(db, "posts", String(id)));
-
