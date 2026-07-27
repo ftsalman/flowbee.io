@@ -26,7 +26,7 @@ export const Loginpage = () => {
       localStorage.setItem("flowbee_admin_auth", "true");
       localStorage.setItem("flowbee_admin_email", email);
       setIsLoading(false);
-      navigate("/admin/create-blog");
+      navigate("/admin/dashboard");
     }, 400);
   };
 

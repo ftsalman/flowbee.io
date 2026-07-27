@@ -20,6 +20,8 @@ import { PrivacypolicyPage } from "../features/privacy-policy/page/Privacypolicy
 import { TermsConditionsPage } from "../features/terms-conditions/page/TermsConditionsPage";
 import { GlobalPricingPage } from "../features/global-pricing/page/GlobalPricingPage";
 import { SupportPage } from "../features/Support/page/SupportPage";
+import { CreateSupportPage } from "../features/create-support/pages/CreateSupportPage";
+import { AdminDashboard } from "../features/blog-admins/dashboard/pages/AdminDashboard";
 
 export const router = createBrowserRouter([
   {
@@ -95,6 +97,7 @@ export const router = createBrowserRouter([
         path: "support",
         element: <SupportPage />,
       },
+     
     ],
   },
   {
@@ -111,8 +114,16 @@ export const router = createBrowserRouter([
         element: <Loginpage />,
       },
       {
+        path: "dashboard",
+        element: <AdminDashboard />,
+      },
+      {
         path: "create-blog",
         element: <CreateBlogPage />,
+      },
+       {
+        path: "create-support",
+        element: <CreateSupportPage />,
       },
     ],
   },

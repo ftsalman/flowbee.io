@@ -2,7 +2,7 @@ import { collection, deleteDoc, doc, getDocs, setDoc } from "firebase/firestore"
 import { db } from "../../../../config/firebase";
 import { uploadToCloudinary } from "./cloudinary";
 
-const uploadDataUrl = async (dataUrl) => {
+export const uploadDataUrl = async (dataUrl) => {
   if (!dataUrl?.startsWith("data:")) return dataUrl;
 
   let resourceType = 'auto';

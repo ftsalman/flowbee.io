@@ -21,6 +21,18 @@ export const AuthLayout = () => {
     navigate("/admin/login");
   };
 
+  const getLiveLinkProps = () => {
+    if (location.pathname.includes('support')) {
+      return { to: '/support', label: 'View Live Support', shortLabel: 'Live Support' };
+    }
+    if (location.pathname.includes('blog')) {
+      return { to: '/blog', label: 'View Live Blog', shortLabel: 'Live Blog' };
+    }
+    return { to: '/', label: 'View Live Site', shortLabel: 'Live Site' };
+  };
+
+  const liveLink = getLiveLinkProps();
+
   return (
     <div className="min-h-screen bg-[#FAFBFD] flex flex-col selection:bg-[#FFD400]/40 selection:text-black font-sans relative overflow-x-hidden">
       {/* Top Yellow Brand Accent Strip */}
@@ -43,13 +55,13 @@ export const AuthLayout = () => {
 
           <div className="flex items-center gap-1.5 sm:gap-3 shrink-0">
             <Link
-              to="/blog"
+              to={liveLink.to}
               className="text-[11px] sm:text-sm font-bold text-neutral-700 hover:text-black flex items-center gap-1 sm:gap-1.5 px-2.5 sm:px-3.5 py-1.5 sm:py-2 rounded-xl border border-gray-200 bg-white hover:bg-gray-50 shadow-sm transition-all active:scale-95 shrink-0"
-              title="View Live Blog"
+              title={liveLink.label}
             >
               <span>←</span>
-              <span className="hidden sm:inline">View Live Blog</span>
-              <span className="sm:hidden">Live Blog</span>
+              <span className="hidden sm:inline">{liveLink.label}</span>
+              <span className="sm:hidden">{liveLink.shortLabel}</span>
             </Link>
 
             {isLoggedIn ? (
