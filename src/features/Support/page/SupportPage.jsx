@@ -142,6 +142,7 @@ export const SupportPage = () => {
                   setActiveCategory={setActiveCategory}
                   containerVariants={containerVariants}
                   itemVariants={itemVariants}
+                  modulesData={mergedModulesData}
                 />
               </div>
 
