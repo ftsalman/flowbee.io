@@ -10,24 +10,12 @@ import { CategoryGrid } from "../components/CategoryGrid";
 import { QuickLinks } from "../components/QuickLinks";
 import { ActiveCategoryView } from "../components/ActiveCategoryView";
 import { ArticleView } from "../components/ArticleView";
-import { ContactSection } from "../components/ContactSection";
 import { Footer } from "../components/Footer";
 
 export const SupportPage = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [activeCategory, setActiveCategory] = useState(null);
   const [activeModule, setActiveModule] = useState(null);
-
-  // Ticket Form state
-  const [ticketForm, setTicketForm] = useState({
-    name: "",
-    email: "",
-    subject: "",
-    category: "general",
-    message: "",
-  });
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitSuccess, setSubmitSuccess] = useState(false);
   
   // Dynamic articles state
   const [dynamicArticles, setDynamicArticles] = useState([]);
@@ -61,29 +49,6 @@ export const SupportPage = () => {
     window.scrollTo(0, 0);
   }, [activeCategory, activeModule]);
 
-  const handleFormChange = (e) => {
-    setTicketForm({
-      ...ticketForm,
-      [e.target.name]: e.target.value,
-    });
-  };
-
-  const handleSubmitTicket = (e) => {
-    e.preventDefault();
-    setIsSubmitting(true);
-    setTimeout(() => {
-      setIsSubmitting(false);
-      setSubmitSuccess(true);
-      setTicketForm({
-        name: "",
-        email: "",
-        subject: "",
-        category: "general",
-        message: "",
-      });
-      setTimeout(() => setSubmitSuccess(false), 5000);
-    }, 1500);
-  };
 
   // Filter categories if searching from home
   const filteredCategories = CATEGORIES.filter((cat) =>
@@ -167,14 +132,6 @@ export const SupportPage = () => {
               setActiveCategory={setActiveCategory}
             />
           )}
-
-          <ContactSection
-            submitSuccess={submitSuccess}
-            handleSubmitTicket={handleSubmitTicket}
-            ticketForm={ticketForm}
-            handleFormChange={handleFormChange}
-            isSubmitting={isSubmitting}
-          />
         </div>
 
         <Footer />

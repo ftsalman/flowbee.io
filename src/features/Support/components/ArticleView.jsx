@@ -92,9 +92,9 @@ export const ArticleView = ({ activeCategory, activeModule, setActiveModule, CAT
       <main className="flex-1 max-w-3xl lg:px-4">
         {/* Breadcrumbs */}
         <div className="flex items-center gap-2 text-[13px] text-gray-500 mb-8 overflow-hidden whitespace-nowrap text-ellipsis">
-          <span className="hover:text-gray-900 cursor-pointer">Home</span>
+          <span onClick={() => window.location.href = '/'} className="hover:text-gray-900 cursor-pointer">Home</span>
           <span>/</span>
-          <span className="hover:text-gray-900 cursor-pointer">Docs</span>
+          <span onClick={() => { setActiveCategory(null); setActiveModule(null); }} className="hover:text-gray-900 cursor-pointer">Docs</span>
           <span>/</span>
           <span onClick={() => setActiveModule(null)} className="hover:text-gray-900 cursor-pointer">{activeCategory?.label}</span>
           <span>/</span>

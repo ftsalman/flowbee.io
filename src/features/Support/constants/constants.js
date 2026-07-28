@@ -26,10 +26,29 @@ export const CATEGORIES = [
 
 export const MODULES_DATA = {
   "getting-started": [
-    { title: "About Flowbee.io?", desc: "Learn the basics about Flowbee.io." },
-    { title: "Pre-Requirements Before Onboarding to Flowbee.io", desc: "What you need before getting started." },
-    { title: "How to Sign Up to Flowbee.io", desc: "Step by step guide to signing up." },
-    { title: "Welcome to Flowbee.io Doc", desc: "Welcome documentation." },
+    { title: "Template Messages Masterclass: Understand how they work", desc: "Masterclass overview", section: "Highlight" },
+    { title: "Prerequisites before you get started with Flowbee", desc: "Prerequisites", section: "Flowbee Essentials" },
+    { title: "How to create and log into your Flowbee account", desc: "Account creation", section: "Flowbee Essentials" },
+    { title: "How to update your WhatsApp Business profile", desc: "Profile update", section: "Flowbee Essentials" },
+    { title: "How to change or update your WhatsApp display name", desc: "Display name", section: "Flowbee Essentials" },
+    { title: "Guidelines for choosing your display name", desc: "Display name guidelines", section: "Flowbee Essentials" },
+    { title: "How to connect your WhatsApp number to Flowbee (via Embedded Signup - Cloud API)", desc: "WhatsApp connection", section: "Flowbee Essentials" },
+    { title: "Marketing Messages Lite (MM Lite): All you need to Know", desc: "MM Lite overview", section: "Flowbee Essentials" },
+    { title: "Flowbee Campaigns and MM Lite", desc: "Campaigns", section: "Flowbee Essentials" },
+    { title: "Migrating from On-Premise WhatsApp Business API to WhatsApp Cloud API", desc: "Migration", section: "Flowbee Essentials" },
+    { title: "Onboarding with Embedded Signup: Using free number or skipping website", desc: "Embedded Signup", section: "Flowbee Essentials" },
+    { title: "Introduction to Flowbee's Team Inbox", desc: "Team Inbox", section: "Flowbee Basics" },
+    { title: "Understanding the new filters and navigation experience in your Flowbee Team Inbox", desc: "Filters and navigation", section: "Flowbee Basics" },
+    { title: "How to add your first contact in Flowbee", desc: "Add contacts", section: "Flowbee Basics" },
+    { title: "How to create your first Template Message", desc: "Create template", section: "Flowbee Basics" },
+    { title: "How to send your first Campaign", desc: "Send campaign", section: "Flowbee Basics" },
+    { title: "How to change the language in Flowbee", desc: "Change language", section: "Personalizing your Flowbee workspace" },
+    { title: "How to change your timezone in Flowbee", desc: "Change timezone", section: "Personalizing your Flowbee workspace" },
+    { title: "Managing notifications and sounds in Flowbee", desc: "Notifications", section: "Personalizing your Flowbee workspace" },
+    { title: "How to configure auto replies and OOO messages", desc: "Auto replies", section: "Personalizing your Flowbee workspace" },
+    { title: "How to change your Flowbee credit currency (Rate Card) from USD to INR", desc: "Credit currency", section: "Personalizing your Flowbee workspace" },
+    { title: "General FAQs: Display Name", desc: "FAQ Display Name", section: "FAQs and troubleshooting" },
+    { title: "General FAQs: Marketing Messages Lite (MM Lite)", desc: "FAQ MM Lite", section: "FAQs and troubleshooting" }
   ],
   "dashboard": [
     { title: "Flowbee Dashboard Overview", desc: "Understand your main dashboard metrics." },
