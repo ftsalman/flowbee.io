@@ -4,6 +4,7 @@ import { FiChevronRight, FiSearch, FiFolder, FiFileText, FiLink, FiUser, FiThumb
 
 export const ArticleView = ({ activeCategory, activeModule, setActiveModule, CATEGORIES, MODULES_DATA, setActiveCategory }) => {
   const [sidebarSearch, setSidebarSearch] = useState("");
+  const [activeToc, setActiveToc] = useState("The Problem Businesses Face");
 
   const handleCategoryClick = (cat) => {
     setActiveCategory(cat);
@@ -18,17 +19,18 @@ export const ArticleView = ({ activeCategory, activeModule, setActiveModule, CAT
   };
 
   return (
-    <div className="max-w-[1440px] mx-auto px-4 md:px-8 py-10 min-h-[80vh] flex flex-col lg:flex-row gap-10">
+    <div className="max-w-[1440px] mx-auto px-4 md:px-8 py-6 h-[calc(100vh-80px)] overflow-hidden flex flex-col lg:flex-row gap-8">
       
       <style>{`
-        .custom-scroll::-webkit-scrollbar { width: 6px; }
+        .custom-scroll::-webkit-scrollbar { width: 4px; }
         .custom-scroll::-webkit-scrollbar-track { background: transparent; }
         .custom-scroll::-webkit-scrollbar-thumb { background-color: #E5E7EB; border-radius: 20px; }
+        .custom-scroll:hover::-webkit-scrollbar-thumb { background-color: #D1D5DB; }
       `}</style>
       
       {/* Left Sidebar Navigation */}
-      <aside className="w-full lg:w-[280px] shrink-0 border-r border-gray-100 pr-4 h-[calc(100vh-100px)] overflow-y-auto custom-scroll">
-        <div className="sticky top-0">
+      <aside className="w-full lg:w-[280px] shrink-0 border-r border-gray-100 pr-4 h-full overflow-y-auto custom-scroll">
+        <div className="sticky top-0 pb-10">
           {/* Search Box */}
           <div className="relative mb-8">
             <FiSearch className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 w-4 h-4" />
@@ -89,7 +91,7 @@ export const ArticleView = ({ activeCategory, activeModule, setActiveModule, CAT
       </aside>
 
       {/* Main Content Area */}
-      <main className="flex-1 max-w-3xl lg:px-4">
+      <main className="flex-1 max-w-3xl lg:px-8 h-full overflow-y-auto custom-scroll pb-20">
         {/* Breadcrumbs */}
         <div className="flex items-center gap-2 text-[13px] text-gray-500 mb-8 overflow-hidden whitespace-nowrap text-ellipsis">
           <span onClick={() => window.location.href = '/'} className="hover:text-gray-900 cursor-pointer">Home</span>
@@ -165,6 +167,27 @@ export const ArticleView = ({ activeCategory, activeModule, setActiveModule, CAT
                 </pre>
                 
                 <p>Ensure you handle the asynchronous responses properly in your application lifecycle. If you encounter any issues, please submit a support ticket using the form below.</p>
+                
+                <h3 id="we-are-a-meta-business-partner">We Are a Meta Business Partner</h3>
+                <p>To get started, navigate to your dashboard and create a new access token. Make sure you store it securely, as it will only be displayed once.</p>
+                
+                <h3 id="the-problem-businesses-face">The Problem Businesses Face</h3>
+                <p>Next, configure your webhook endpoint to receive real-time updates. Your endpoint must be capable of responding with a 200 OK within 3 seconds to avoid timeouts.</p>
+                
+                <h3 id="how-flowbee-solves-it">How Flowbee Solves It</h3>
+                <p>Our API supports batch operations. You can send up to 1,000 records in a single payload. Ensure your payload follows the JSON schema defined in our API reference.</p>
+                
+                <h3 id="broadcast-messaging">Broadcast Messaging</h3>
+                <p>Additionally, rate limits apply. You can make up to 100 requests per minute on the standard plan. For higher limits, contact our sales team.</p>
+
+                <h3 id="chatbot-automation">Chatbot Automation</h3>
+                <p>If you receive a 401 Unauthorized error, double-check your API key. If the issue persists, try rotating your key from the developer portal.</p>
+                
+                <h3 id="team-inbox">Team Inbox</h3>
+                <p>For 429 Too Many Requests, implement exponential backoff in your retry logic to prevent being temporarily banned.</p>
+                
+                <h3 id="booking-&-appointment">Booking & Appointment</h3>
+                <p>Join our developer community on Discord or our community forums to share your use cases, ask questions, and collaborate with other developers building with Flowbee.</p>
               </>
             )}
           </div>
@@ -172,34 +195,38 @@ export const ArticleView = ({ activeCategory, activeModule, setActiveModule, CAT
       </main>
 
       {/* Right Sidebar (Table of Contents & Share) */}
-      <aside className="w-full lg:w-[260px] shrink-0 lg:pl-6 h-[calc(100vh-100px)] overflow-y-auto custom-scroll">
+      <aside className="w-full lg:w-[260px] shrink-0 lg:pl-6 h-full overflow-y-auto custom-scroll pb-10">
         <div className="sticky top-0 space-y-10">
           
           {/* Table of Contents */}
           <div>
             <h3 className="text-[15px] font-bold text-gray-500 mb-6 uppercase tracking-wider">Table of Contents</h3>
             <div className="relative border-l-2 border-gray-100 flex flex-col gap-5 text-[14px]">
-              <div className="pl-4 text-gray-500 hover:text-gray-900 cursor-pointer transition-colors">
-                We Are a Meta Business Partner
-              </div>
-              <div className="pl-4 border-l-2 border-[#FFD400] -ml-[2px] font-semibold text-gray-900 cursor-pointer">
-                The Problem Businesses Face
-              </div>
-              <div className="pl-4 text-gray-500 hover:text-gray-900 cursor-pointer transition-colors">
-                How Flowbee Solves It
-              </div>
-              <div className="pl-4 text-gray-500 hover:text-gray-900 cursor-pointer transition-colors">
-                Broadcast Messaging
-              </div>
-              <div className="pl-4 text-gray-500 hover:text-gray-900 cursor-pointer transition-colors">
-                Chatbot Automation
-              </div>
-              <div className="pl-4 text-gray-500 hover:text-gray-900 cursor-pointer transition-colors">
-                Team Inbox
-              </div>
-              <div className="pl-4 text-gray-500 hover:text-gray-900 cursor-pointer transition-colors">
-                Booking & Appointment
-              </div>
+              {[
+                "We Are a Meta Business Partner",
+                "The Problem Businesses Face",
+                "How Flowbee Solves It",
+                "Broadcast Messaging",
+                "Chatbot Automation",
+                "Team Inbox",
+                "Booking & Appointment"
+              ].map((item) => (
+                <div 
+                  key={item}
+                  onClick={() => {
+                    setActiveToc(item);
+                    const el = document.getElementById(item.toLowerCase().replace(/\s+/g, '-'));
+                    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                  }}
+                  className={`pl-4 cursor-pointer transition-colors ${
+                    activeToc === item
+                      ? "border-l-2 border-[#FFD400] -ml-[2px] font-semibold text-gray-900"
+                      : "text-gray-500 hover:text-gray-900"
+                  }`}
+                >
+                  {item}
+                </div>
+              ))}
             </div>
           </div>
 
