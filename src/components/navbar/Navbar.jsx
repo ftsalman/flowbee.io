@@ -196,12 +196,22 @@ export const Navbar = () => {
           {/* Center: Navigation Links */}
           <nav className="hidden md:flex items-center justify-center flex-auto gap-7">
             {NavList.map((item) => renderNavItem(item))}
-            <Link 
+            {/* <Link 
               to="/support" 
               className="text-sm font-medium text-black hover:text-gray-500 transition-colors"
             >
               Support
-            </Link>
+            </Link> */}
+
+            <a
+              href="https://support.flowbee.io/"
+              target="_blank"
+              rel="noopener noreferrer"
+                            className="text-sm font-medium text-black hover:text-gray-500 transition-colors"
+
+            >
+              Support
+            </a>
           </nav>
 
           {/* Right: Action Buttons and Mobile Menu Toggle */}
@@ -227,19 +237,39 @@ export const Navbar = () => {
                 </Button>
               </a>
             </div>
-            
+
             {/* Mobile menu button */}
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               className="md:hidden p-2 text-gray-600 hover:text-neutral-800 transition-colors"
             >
               {isMobileMenuOpen ? (
-                <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                <svg
+                  className="w-6 h-6"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M6 18L18 6M6 6l12 12"
+                  />
                 </svg>
               ) : (
-                <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                <svg
+                  className="w-6 h-6"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M4 6h16M4 12h16M4 18h16"
+                  />
                 </svg>
               )}
             </button>
@@ -256,13 +286,23 @@ export const Navbar = () => {
         >
           <div className="px-4 pt-2 pb-4 space-y-1">
             {NavList.map((item) => renderMobileNavItem(item))}
-            <Link
+            <a
+              href="https://support.flowbee.io/"
+              target="_blank"
+              rel="noopener noreferrer"
+                            className="text-sm font-medium text-black hover:text-gray-500 transition-colors"
+
+            >
+              Support
+            </a>
+
+            {/* <Link
               to="/support"
               className="block py-2 text-sm font-medium text-neutral-800"
               onClick={() => setIsMobileMenuOpen(false)}
             >
               Support
-            </Link>
+            </Link> */}
             <div className="pt-4 mt-2 border-t border-gray-100 flex flex-row gap-3">
               <a
                 href="https://app.flowbee.io/auth/login"
