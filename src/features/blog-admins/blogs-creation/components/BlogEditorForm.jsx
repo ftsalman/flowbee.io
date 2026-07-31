@@ -341,13 +341,30 @@ export const BlogEditorForm = ({
             </div>
           </div>
 
-          <div>
+          <div className="space-y-4">
+            <div>
+              <label className="block text-xs font-bold text-neutral-700 uppercase tracking-wider mb-2">
+                Cover Image URL
+              </label>
+              <InputBox
+                type="url"
+                value={image}
+                onChange={(e) => setImage(e.target.value)}
+                placeholder="Paste an image URL here..."
+                className="w-full !rounded-xl !py-2.5 !px-3 !border-gray-300 font-medium text-xs"
+              />
+            </div>
+
+            <div className="flex items-center gap-3">
+              <div className="flex-1 h-px bg-gray-200"></div>
+              <span className="text-[10px] font-bold text-neutral-400 uppercase tracking-widest">OR UPLOAD FILE</span>
+              <div className="flex-1 h-px bg-gray-200"></div>
+            </div>
+
             <ImageUploader 
-              label="Cover Image" 
               value={image} 
               onChange={setImage} 
               placeholder="Drag and drop a cover image here"
-              className="mb-3"
             />
 
             {/* Quick Sample Image Selector */}

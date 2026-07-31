@@ -23,9 +23,9 @@ export const HomeBlogSection = () => {
 
       try {
         const querySnapshot = await getDocs(collection(db, "posts"));
-        firestorePosts = querySnapshot.docs.map(doc => ({
+        firestorePosts = querySnapshot.docs.map((doc) => ({
           id: doc.id,
-          ...doc.data()
+          ...doc.data(),
         }));
       } catch (error) {
         console.error("Error fetching blogs from Firestore:", error);
@@ -33,16 +33,19 @@ export const HomeBlogSection = () => {
 
       const uniquePosts = [...localPosts, ...firestorePosts].filter(
         (post, index, posts) =>
-          posts.findIndex((candidate) => String(candidate.id) === String(post.id)) === index
+          posts.findIndex(
+            (candidate) => String(candidate.id) === String(post.id),
+          ) === index,
       );
-      
+
       uniquePosts.sort(
         (a, b) =>
-          new Date(b.createdAt || b.date || 0) - new Date(a.createdAt || a.date || 0)
+          new Date(b.createdAt || b.date || 0) -
+          new Date(a.createdAt || a.date || 0),
       );
-      
+
       const mergedLatestPosts = [...uniquePosts, ...LATEST_POSTS];
-      
+
       // Get the top 3 latest posts
       setLatestBlogs(mergedLatestPosts.slice(0, 3));
     };
@@ -59,10 +62,11 @@ export const HomeBlogSection = () => {
               Latest from our <span className="text-[#25D366]">Blog.</span>
             </h2>
             <p className="text-gray-500 font-medium mt-4 text-sm lg:text-base max-w-xl">
-              Discover insights, strategies, and tips to scale your business with WhatsApp automation.
+              Discover insights, strategies, and tips to scale your business
+              with WhatsApp automation.
             </p>
           </div>
-          <Link to="/blogs">
+          <Link to="/blog">
             <Button className="!bg-[#111] !text-white hover:!bg-black font-bold px-6 py-2.5 rounded-full shadow-md">
               View All Posts
             </Button>
