@@ -72,7 +72,7 @@ export const BlogGrid = ({ searchTerm }) => {
       {/* ==================================
           LATEST BLOGS SECTION
       =================================== */}
-      {!searchTerm && (
+      {!searchTerm && mergedLatestPosts.length > 0 && (
         <section className="py-12 md:py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 border-b border-gray-200/60">
           <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-10 gap-4">
             <div>
@@ -96,7 +96,7 @@ export const BlogGrid = ({ searchTerm }) => {
       {/* ==================================
           TRENDING BLOGS SECTION
       =================================== */}
-      {!searchTerm && (
+      {!searchTerm && TRENDING_POSTS.length > 0 && (
         <section className="py-12 md:py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 border-b border-gray-200/60">
           <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-10 gap-4">
             <div>
@@ -179,7 +179,7 @@ export const BlogGrid = ({ searchTerm }) => {
           </div>
         ) : (
           /* Empty State */
-          <div className="text-center py-20 bg-white rounded-3xl border border-gray-200 shadow-sm">
+          <div className="flex flex-col items-center justify-center text-center py-20 bg-white rounded-3xl border border-gray-200 shadow-sm">
             <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4 text-2xl">
               🔍
             </div>

@@ -7,6 +7,7 @@ import { AdsSection, BroadcastSection } from "../components/AdsBroadcast/AdsBroa
 import { AiBotSection } from "../components/AiBot/AiBot";
 import { RoadmapSection, BentoSection, IndustriesSection } from "../components/Sections/Sections";
 import { VideoModal, VideoPreview, CtaSection } from "../components/Cta/Cta";
+import { HomeBlogSection } from "../components/BlogSection/HomeBlogSection";
 
 export const HomePage = () => {
   const [isVideoOpen, setIsVideoOpen] = useState(false);
@@ -49,7 +50,10 @@ export const HomePage = () => {
       {/* 12. INDUSTRIES */}
       <IndustriesSection />
 
-      {/* 13. FINAL CTA */}
+      {/* 13. BLOG SECTION */}
+      <HomeBlogSection />
+
+      {/* 14. FINAL CTA */}
       <CtaSection />
     </div>
   );
