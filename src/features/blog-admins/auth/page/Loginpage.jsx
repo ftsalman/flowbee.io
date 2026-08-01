@@ -1,16 +1,18 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../../../../config/firebase";
 import { InputBox } from "../../../../../lib/turtle-ui/components/input-box/InputBox";
 import { Button } from "../../../../../lib/turtle-ui/components/button/Button";
 
 export const Loginpage = () => {
   const navigate = useNavigate();
-  const [email, setEmail] = useState("admin@flowbee.io");
-  const [password, setPassword] = useState("admin123");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
     setError("");
 
@@ -21,13 +23,21 @@ export const Loginpage = () => {
 
     setIsLoading(true);
 
-    // Simulate instant secure auth authentication
-    setTimeout(() => {
-      localStorage.setItem("flowbee_admin_auth", "true");
-      localStorage.setItem("flowbee_admin_email", email);
+    try {
+      // Temporary hardcoded login check
+      if (email === "admin@flowbee.io" && password === "admin@123") {
+        localStorage.setItem("flowbee_admin_auth", "true");
+        localStorage.setItem("flowbee_admin_email", email);
+        navigate("/admin/dashboard");
+      } else {
+        throw new Error("Invalid credentials");
+      }
+    } catch (err) {
+      console.error(err);
+      setError("Invalid email or password.");
+    } finally {
       setIsLoading(false);
-      navigate("/admin/dashboard");
-    }, 400);
+    }
   };
 
   return (

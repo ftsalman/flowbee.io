@@ -35,20 +35,14 @@ export const CreateBlogPage = () => {
   }, [navigate]);
 
   // Form State
-  const [title, setTitle] = useState("How WhatsApp AI Agents Scale Conversion by 300%");
+  const [title, setTitle] = useState("");
   const [category, setCategory] = useState("ai-agent");
-  const [author, setAuthor] = useState("Alex Rivers, Head of AI Growth");
-  const [authorImage, setAuthorImage] = useState(
-    "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80"
-  );
-  const [readTime, setReadTime] = useState("5 min read");
-  const [image, setImage] = useState(SAMPLE_IMAGES[0]);
-  const [excerpt, setExcerpt] = useState(
-    "Discover how leading enterprises leverage automated WhatsApp AI chatbots to qualify leads, handle customer support, and close sales 24/7 without increasing team headcount."
-  );
-  const [content, setContent] = useState(
-    `<h1>The Future of Conversational Commerce</h1><p>In today's fast-paced digital landscape, customers expect instant responses. When a potential buyer reaches out on WhatsApp, waiting hours for a reply often means losing the sale to a competitor.</p><h2>Why AI Agents Are Game-Changers</h2><p>Unlike traditional static chatbots, modern AI agents powered by large language models understand context, nuance, and customer intent. They can seamlessly:</p><ul><li><strong>Answer complex product queries</strong> instantly using your knowledge base.</li><li><strong>Qualify inbound leads</strong> before routing high-value prospects to human sales reps.</li><li><strong>Process orders and check shipping status</strong> without human intervention.</li></ul><h2>Key Takeaways for Enterprise Leaders</h2><p>By deploying Flowbee's WhatsApp automation suite, businesses routinely experience a <strong>40% reduction in support response times</strong> and a <strong>3x increase in lead conversion rates</strong>. The secret lies in blending automated AI speed with human touch.</p>`
-  );
+  const [author, setAuthor] = useState("");
+  const [authorImage, setAuthorImage] = useState("");
+  const [readTime, setReadTime] = useState("");
+  const [image, setImage] = useState("");
+  const [excerpt, setExcerpt] = useState("");
+  const [content, setContent] = useState("");
 
   const [activeTab, setActiveTab] = useState(TABS[0]);
   const [isPublishing, setIsPublishing] = useState(false);
