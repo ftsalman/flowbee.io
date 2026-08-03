@@ -30,6 +30,12 @@ jobs:
           server: ${{ secrets.FTP_SERVER }}
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
+
+          # Vite build folder
           local-dir: ./dist/
-          server-dir: /public_html/
+
+          # FTP account already points to /home/flowrihz/public_html
+          server-dir: /
+
+          # Remove old files before uploading new ones
           dangerous-clean-slate: true
