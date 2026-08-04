@@ -28,9 +28,9 @@ export const BlogGrid = ({ searchTerm }) => {
 
       try {
         const querySnapshot = await getDocs(collection(db, "posts"));
-        firestorePosts = querySnapshot.docs.map(doc => ({
+        firestorePosts = querySnapshot.docs.map((doc) => ({
           id: doc.id,
-          ...doc.data()
+          ...doc.data(),
         }));
       } catch (error) {
         console.error("Error fetching blogs from Firestore:", error);
@@ -38,11 +38,14 @@ export const BlogGrid = ({ searchTerm }) => {
 
       const uniquePosts = [...localPosts, ...firestorePosts].filter(
         (post, index, posts) =>
-          posts.findIndex((candidate) => String(candidate.id) === String(post.id)) === index
+          posts.findIndex(
+            (candidate) => String(candidate.id) === String(post.id),
+          ) === index,
       );
       uniquePosts.sort(
         (a, b) =>
-          new Date(b.createdAt || b.date || 0) - new Date(a.createdAt || a.date || 0)
+          new Date(b.createdAt || b.date || 0) -
+          new Date(a.createdAt || a.date || 0),
       );
       setCustomPosts(uniquePosts);
     };
@@ -120,7 +123,10 @@ export const BlogGrid = ({ searchTerm }) => {
       {/* ==================================
           CATEGORIES & ALL BLOGS SECTION
       =================================== */}
-      <section className="py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" id="categories-section">
+      <section
+        className="py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"
+        id="categories-section"
+      >
         <div className="text-center md:text-left mb-8">
           <span className="text-xs font-bold text-neutral-500 uppercase tracking-wider block mb-1">
             Explore By Topic
@@ -131,7 +137,7 @@ export const BlogGrid = ({ searchTerm }) => {
         </div>
 
         {/* Category Filter Pills using turtle-ui Button */}
-        <div className="flex flex-wrap items-center gap-2.5 mb-12 pb-4 border-b border-gray-200 overflow-x-auto">
+        <div className="flex flex-wrap items-center gap-2.5 mb-12 pb-4 p-2 border-b border-gray-200 overflow-x-auto">
           {BLOG_CATEGORIES.map((cat) => {
             const isActive = activeCategory === cat.id;
             return (
@@ -155,7 +161,8 @@ export const BlogGrid = ({ searchTerm }) => {
         {searchTerm && (
           <div className="mb-6 flex items-center justify-between bg-[#FEFCE8] p-4 rounded-xl border border-[#FFD400]/60">
             <span className="text-sm font-medium text-neutral-800">
-              Showing results for <strong className="text-black">"{searchTerm}"</strong> in{" "}
+              Showing results for{" "}
+              <strong className="text-black">"{searchTerm}"</strong> in{" "}
               <strong className="text-black">
                 {BLOG_CATEGORIES.find((c) => c.id === activeCategory)?.label}
               </strong>
@@ -183,9 +190,12 @@ export const BlogGrid = ({ searchTerm }) => {
             <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4 text-2xl">
               🔍
             </div>
-            <h3 className="text-xl font-bold text-neutral-900 mb-2">No articles found</h3>
+            <h3 className="text-xl font-bold text-neutral-900 mb-2">
+              No articles found
+            </h3>
             <p className="text-neutral-500 max-w-md mx-auto mb-6 text-sm">
-              We couldn't find any blog posts matching "{searchTerm}" in this category. Try selecting another topic or clearing your search.
+              We couldn't find any blog posts matching "{searchTerm}" in this
+              category. Try selecting another topic or clearing your search.
             </p>
             <Button
               onClick={() => {
