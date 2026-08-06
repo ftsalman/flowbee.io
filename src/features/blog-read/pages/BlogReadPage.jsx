@@ -256,7 +256,7 @@ The future belongs to agile organizations that combine artificial intelligence w
         <div className="prose max-w-none text-neutral-800 space-y-6 text-lg leading-relaxed font-normal break-words overflow-hidden">
           {/<\/?[a-z][\s\S]*>/i.test(displayContent) ? (
             <div
-              className="[&_iframe]:aspect-video [&_iframe]:w-full [&_iframe]:rounded-xl [&_video]:w-full [&_video]:rounded-xl"
+              className="[&_iframe]:aspect-video [&_iframe]:w-full [&_iframe]:rounded-xl [&_video]:w-full [&_video]:rounded-xl [&_ul]:list-disc [&_ul]:ml-6 [&_ul]:mb-4 [&_ol]:list-decimal [&_ol]:ml-6 [&_ol]:mb-4 [&_li]:pl-1 [&_li]:mb-1.5"
               dangerouslySetInnerHTML={{ __html: displayContent }}
             />
           ) : displayContent.split("\n\n").map((para, idx) => {

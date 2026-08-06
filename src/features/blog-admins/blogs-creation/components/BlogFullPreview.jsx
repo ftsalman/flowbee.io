@@ -30,7 +30,7 @@ export const BlogFullPreview = ({ previewPost, setActiveTab }) => {
         />
       </div>
 
-      <div className="prose max-w-none text-neutral-800 space-y-4 text-base leading-relaxed font-normal">
+      <div className="prose max-w-none text-neutral-800 space-y-4 text-base leading-relaxed font-normal [&_ul]:list-disc [&_ul]:ml-6 [&_ul]:mb-4 [&_ol]:list-decimal [&_ol]:ml-6 [&_ol]:mb-4 [&_li]:pl-1 [&_li]:mb-1.5">
         <div dangerouslySetInnerHTML={{ __html: previewPost.content }} />
       </div>
 

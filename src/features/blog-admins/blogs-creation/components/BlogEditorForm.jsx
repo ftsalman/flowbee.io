@@ -71,9 +71,17 @@ export const BlogEditorForm = ({
     () => ({
       toolbar: {
         container: [
-          [{ header: [1, 2, 3, false] }],
-          ["bold", "italic", "underline", "strike", "blockquote"],
-          [{ list: "ordered" }, { list: "bullet" }, { indent: "-1" }, { indent: "+1" }],
+          [{ font: [] }],
+          [{ size: ["small", false, "large", "huge"] }],
+          [{ header: [1, 2, 3, 4, 5, 6, false] }],
+          ["bold", "italic", "underline", "strike"],
+          [{ color: [] }, { background: [] }],
+          [{ script: "sub" }, { script: "super" }],
+          ["blockquote", "code-block"],
+          [{ list: "ordered" }, { list: "bullet" }, { list: "check" }],
+          [{ indent: "-1" }, { indent: "+1" }],
+          [{ direction: "rtl" }],
+          [{ align: [] }],
           ["link", "image", "video"],
           ["clean"],
         ],
@@ -219,19 +227,28 @@ export const BlogEditorForm = ({
                 modules={quillModules}
                 formats={[
                   "header",
+                  "font",
+                  "size",
                   "bold",
                   "italic",
                   "underline",
                   "strike",
                   "blockquote",
                   "list",
+                  "bullet",
                   "indent",
                   "link",
                   "image",
                   "video",
                   "uploadedVideo",
+                  "color",
+                  "background",
+                  "script",
+                  "code-block",
+                  "align",
+                  "direction",
                 ]}
-                className="bg-white rounded-xl overflow-hidden [&_.ql-toolbar]:rounded-t-xl [&_.ql-toolbar]:border-gray-300 [&_.ql-toolbar]:bg-gray-50 [&_.ql-container]:rounded-b-xl [&_.ql-container]:border-gray-300 [&_.ql-editor]:min-h-[300px] [&_.ql-editor]:text-base [&_.ql-editor]:font-sans"
+                className="bg-white rounded-xl border border-gray-200 [&_.ql-toolbar]:sticky [&_.ql-toolbar]:top-[68px] [&_.ql-toolbar]:z-40 [&_.ql-toolbar]:rounded-t-xl [&_.ql-toolbar]:border-gray-300 [&_.ql-toolbar]:bg-gray-50 [&_.ql-container]:rounded-b-xl [&_.ql-container]:border-gray-300 [&_.ql-editor]:min-h-[300px] [&_.ql-editor]:text-base [&_.ql-editor]:font-sans"
                 placeholder="Write your comprehensive article here..."
               />
               <input
@@ -285,7 +302,7 @@ export const BlogEditorForm = ({
       </div>
 
       {/* Right Column: Metadata & Publishing Controls */}
-      <div className="space-y-6">
+      <div className="space-y-6 lg:sticky lg:top-[80px] lg:self-start lg:max-h-[calc(100vh-100px)] lg:overflow-y-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
         {/* Publishing Box */}
         <div className="bg-white rounded-3xl p-6 border border-gray-200 shadow-sm space-y-5">
           <h2 className="text-lg font-bold text-neutral-900 border-b border-gray-100 pb-3 flex items-center gap-2">

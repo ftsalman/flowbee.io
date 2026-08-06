@@ -34,7 +34,7 @@ export const AuthLayout = () => {
   const liveLink = getLiveLinkProps();
 
   return (
-    <div className="min-h-screen bg-[#FAFBFD] flex flex-col selection:bg-[#FFD400]/40 selection:text-black font-sans relative overflow-x-hidden">
+    <div className="min-h-screen bg-[#FAFBFD] flex flex-col selection:bg-[#FFD400]/40 selection:text-black font-sans relative">
       {/* Top Yellow Brand Accent Strip */}
       <div className="h-1 bg-[#FFD400] w-full" />
 
