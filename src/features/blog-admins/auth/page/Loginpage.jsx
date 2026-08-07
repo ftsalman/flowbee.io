@@ -85,7 +85,7 @@ export const Loginpage = () => {
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              placeholder="admin@flowbee.io"
+              placeholder="Enter Your Email"
               className="w-full !rounded-xl !bg-gray-50/80 focus:!bg-white font-medium text-sm"
               required
             />
