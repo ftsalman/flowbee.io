@@ -43,6 +43,7 @@ export const CreateBlogPage = () => {
   const [image, setImage] = useState("");
   const [excerpt, setExcerpt] = useState("");
   const [content, setContent] = useState("");
+  const [faqs, setFaqs] = useState([]);
 
   const [activeTab, setActiveTab] = useState(TABS[0]);
   const [isPublishing, setIsPublishing] = useState(false);
@@ -99,6 +100,7 @@ export const CreateBlogPage = () => {
     image: image || SAMPLE_IMAGES[0],
     excerpt: excerpt || "No excerpt provided...",
     content: content,
+    faqs: faqs,
   };
 
   const handlePublish = (e) => {
@@ -154,6 +156,7 @@ export const CreateBlogPage = () => {
     setImage(post.image);
     setExcerpt(post.excerpt);
     setContent(post.content);
+    setFaqs(post.faqs || []);
     setEditingId(post.id);
     setActiveTab(TABS[0]); // back to editor
     window.scrollTo({ top: 0, behavior: "smooth" });
@@ -175,6 +178,7 @@ export const CreateBlogPage = () => {
     setTitle("");
     setExcerpt("");
     setContent("");
+    setFaqs([]);
   };
 
   const handleCloseModal = () => {
@@ -182,6 +186,7 @@ export const CreateBlogPage = () => {
     setTitle("");
     setExcerpt("");
     setContent("");
+    setFaqs([]);
     setEditingId(null);
   };
 
@@ -224,6 +229,8 @@ export const CreateBlogPage = () => {
           setExcerpt={setExcerpt}
           content={content}
           setContent={setContent}
+          faqs={faqs}
+          setFaqs={setFaqs}
           category={category}
           setCategory={setCategory}
           readTime={readTime}

@@ -17,8 +17,13 @@ export const FAQSection = () => {
         <SectionHeader num="Support" title="Frequently Asked Questions" />
         
         <div className="space-y-4 mt-12">
-          {faqData.map((faq, idx) => (
-            <article key={idx} className="bg-white border border-slate-200 rounded-2xl overflow-hidden shadow-sm">
+          {(!faqData || faqData.length === 0) ? (
+            <div className="text-center py-12 bg-white rounded-2xl border border-dashed border-slate-300 text-slate-500 font-medium">
+              No frequently asked questions available at this time.
+            </div>
+          ) : (
+            faqData.map((faq, idx) => (
+              <article key={idx} className="bg-white border border-slate-200 rounded-2xl overflow-hidden shadow-sm">
               <button 
                 onClick={() => toggleFaq(idx)}
                 className="w-full flex justify-between items-center p-6 font-bold text-md text-slate-900 text-left hover:bg-slate-50 transition-colors"
@@ -41,7 +46,7 @@ export const FAQSection = () => {
                 )}
               </AnimatePresence>
             </article>
-          ))}
+          )))}
         </div>
       </div>
     </section>

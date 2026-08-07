@@ -4,6 +4,7 @@ import "react-quill-new/dist/quill.snow.css";
 import { InputBox } from "../../../../../lib/turtle-ui/components/input-box/InputBox";
 import { Button } from "../../../../../lib/turtle-ui/components/button/Button";
 import { BLOG_CATEGORIES } from "../constants/blogData";
+import { FiPlus, FiTrash2 } from "react-icons/fi";
 
 const SAMPLE_IMAGES = [
   "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1000&auto=format&fit=crop",
@@ -46,6 +47,8 @@ export const BlogEditorForm = ({
   setExcerpt,
   content,
   setContent,
+  faqs = [],
+  setFaqs,
   category,
   setCategory,
   readTime,
@@ -81,7 +84,7 @@ export const BlogEditorForm = ({
           [{ list: "ordered" }, { list: "bullet" }, { list: "check" }],
           [{ indent: "-1" }, { indent: "+1" }],
           [{ direction: "rtl" }],
-          [{ align: [] }],
+          [{ align: ["", "center", "right"] }], // Removed 'justify' to prevent huge spaces
           ["link", "image", "video"],
           ["clean"],
         ],
@@ -248,7 +251,7 @@ export const BlogEditorForm = ({
                   "align",
                   "direction",
                 ]}
-                className="bg-white rounded-xl border border-gray-200 [&_.ql-toolbar]:sticky [&_.ql-toolbar]:top-[68px] [&_.ql-toolbar]:z-40 [&_.ql-toolbar]:rounded-t-xl [&_.ql-toolbar]:border-gray-300 [&_.ql-toolbar]:bg-gray-50 [&_.ql-container]:rounded-b-xl [&_.ql-container]:border-gray-300 [&_.ql-editor]:min-h-[300px] [&_.ql-editor]:text-base [&_.ql-editor]:font-sans"
+                className="bg-white rounded-xl border border-gray-200 [&_.ql-toolbar]:sticky [&_.ql-toolbar]:top-[68px] [&_.ql-toolbar]:z-40 [&_.ql-toolbar]:rounded-t-xl [&_.ql-toolbar]:border-gray-300 [&_.ql-toolbar]:bg-gray-50 [&_.ql-container]:rounded-b-xl [&_.ql-container]:border-gray-300 [&_.ql-editor]:min-h-[300px] [&_.ql-editor]:font-sans [&_.ql-editor]:text-[17px] [&_.ql-editor]:leading-[1.8] [&_.ql-editor]:text-[#5A5A5A] [&_.ql-align-justify]:!text-left [&_.ql-editor_p]:mb-7 [&_.ql-editor_p:last-child]:mb-0 [&_.ql-editor_h1]:text-3xl [&_.ql-editor_h1]:font-semibold [&_.ql-editor_h1]:text-neutral-900 [&_.ql-editor_h1]:mt-12 [&_.ql-editor_h1]:mb-6 [&_.ql-editor_h2]:text-[22px] [&_.ql-editor_h2]:font-semibold [&_.ql-editor_h2]:text-neutral-900 [&_.ql-editor_h2]:mt-10 [&_.ql-editor_h2]:mb-4 [&_.ql-editor_h3]:text-xl [&_.ql-editor_h3]:font-semibold [&_.ql-editor_h3]:text-neutral-900 [&_.ql-editor_h3]:mt-8 [&_.ql-editor_h3]:mb-4 [&_.ql-editor_a]:text-blue-600 [&_.ql-editor_a]:font-medium [&_.ql-editor_a]:no-underline [&_.ql-editor_a]:transition-colors hover:[&_.ql-editor_a]:underline hover:[&_.ql-editor_a]:text-blue-700"
                 placeholder="Write your comprehensive article here..."
               />
               <input
@@ -296,6 +299,74 @@ export const BlogEditorForm = ({
                   <p className="mt-2 text-xs font-medium text-red-600">{youtubeError}</p>
                 )}
               </div>
+            </div>
+          </div>
+
+          {/* FAQ Builder */}
+          <div className="pt-6 border-t border-gray-100">
+            <div className="flex items-center justify-between mb-4">
+              <label className="block text-xs font-bold text-neutral-700 uppercase tracking-wider">
+                Article FAQs (Optional)
+              </label>
+              <Button
+                type="button"
+                onClick={() => setFaqs([...faqs, { question: "", answer: "" }])}
+                className="!px-3 !py-1.5 !rounded-lg !bg-gray-100 hover:!bg-gray-200 !text-neutral-800 !text-xs !font-bold flex items-center gap-1.5 transition-all"
+              >
+                <FiPlus size={14} /> Add FAQ
+              </Button>
+            </div>
+            
+            <div className="space-y-4">
+              {faqs.map((faq, index) => (
+                <div key={index} className="bg-gray-50 rounded-xl p-4 border border-gray-200 relative">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      const newFaqs = [...faqs];
+                      newFaqs.splice(index, 1);
+                      setFaqs(newFaqs);
+                    }}
+                    className="absolute top-4 right-4 text-red-400 hover:text-red-600 transition-colors cursor-pointer"
+                    title="Remove FAQ"
+                  >
+                    <FiTrash2 size={16} />
+                  </button>
+                  <div className="space-y-3 pr-8">
+                    <div>
+                      <InputBox
+                        type="text"
+                        value={faq.question}
+                        onChange={(e) => {
+                          const newFaqs = [...faqs];
+                          newFaqs[index].question = e.target.value;
+                          setFaqs(newFaqs);
+                        }}
+                        placeholder="e.g. What is the pricing?"
+                        className="w-full !rounded-lg !py-2.5 !px-3 !border-gray-300 font-bold text-sm text-neutral-900"
+                      />
+                    </div>
+                    <div>
+                      <textarea
+                        rows="2"
+                        value={faq.answer}
+                        onChange={(e) => {
+                          const newFaqs = [...faqs];
+                          newFaqs[index].answer = e.target.value;
+                          setFaqs(newFaqs);
+                        }}
+                        placeholder="Provide a clear, concise answer..."
+                        className="w-full rounded-lg p-3 border border-gray-300 focus:border-[#CA8A04] focus:outline-none focus:ring-2 focus:ring-[#FFD400]/30 font-medium text-sm text-neutral-800 transition-all"
+                      />
+                    </div>
+                  </div>
+                </div>
+              ))}
+              {faqs.length === 0 && (
+                <div className="text-center py-6 bg-gray-50 rounded-xl border border-dashed border-gray-300 text-sm font-medium text-neutral-500">
+                  No FAQs added. Click "Add FAQ" to create one.
+                </div>
+              )}
             </div>
           </div>
         </div>
