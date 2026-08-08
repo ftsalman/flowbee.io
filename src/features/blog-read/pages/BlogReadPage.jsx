@@ -146,13 +146,13 @@ The future belongs to agile organizations that combine artificial intelligence w
       <TopNavigation title={post.title} />
 
       {/* Unified Article Container */}
-      <div className="max-w-[1100px] mx-auto px-4 sm:px-6 lg:px-8 pt-12 pb-16 flex flex-col lg:flex-row gap-12 lg:gap-16 items-start justify-center">
+      <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 pt-12 pb-16 flex flex-col lg:flex-row gap-12 lg:gap-16 items-start justify-center">
         
         {/* TOC Sidebar (Left) */}
         <TableOfContents title={post.title} />
 
         {/* Main Content (Center/Right) */}
-        <div className="flex-1 w-full max-w-3xl min-w-0">
+        <div className="flex-1 w-full max-w-5xl min-w-0">
           <ArticleHero post={post} />
           
           <ArticleBody displayContent={displayContent} />
