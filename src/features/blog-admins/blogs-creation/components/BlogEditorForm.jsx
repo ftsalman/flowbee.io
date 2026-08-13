@@ -84,7 +84,7 @@ export const BlogEditorForm = ({
           [{ list: "ordered" }, { list: "bullet" }, { list: "check" }],
           [{ indent: "-1" }, { indent: "+1" }],
           [{ direction: "rtl" }],
-          [{ align: ["", "center", "right"] }], // Removed 'justify' to prevent huge spaces
+          [{ align: [] }],
           ["link", "image", "video"],
           ["clean"],
         ],
@@ -251,7 +251,7 @@ export const BlogEditorForm = ({
                   "align",
                   "direction",
                 ]}
-                className="bg-white rounded-xl border border-gray-200 [&_.ql-toolbar]:sticky [&_.ql-toolbar]:top-[68px] [&_.ql-toolbar]:z-40 [&_.ql-toolbar]:rounded-t-xl [&_.ql-toolbar]:border-gray-300 [&_.ql-toolbar]:bg-gray-50 [&_.ql-container]:rounded-b-xl [&_.ql-container]:border-gray-300 [&_.ql-editor]:min-h-[300px] [&_.ql-editor]:font-sans [&_.ql-editor]:text-[17px] [&_.ql-editor]:leading-[1.8] [&_.ql-editor]:text-[#5A5A5A] [&_.ql-align-justify]:!text-left [&_.ql-editor_p]:mb-7 [&_.ql-editor_p:last-child]:mb-0 [&_.ql-editor_h1]:text-3xl [&_.ql-editor_h1]:font-semibold [&_.ql-editor_h1]:text-neutral-900 [&_.ql-editor_h1]:mt-12 [&_.ql-editor_h1]:mb-6 [&_.ql-editor_h2]:text-[22px] [&_.ql-editor_h2]:font-semibold [&_.ql-editor_h2]:text-neutral-900 [&_.ql-editor_h2]:mt-10 [&_.ql-editor_h2]:mb-4 [&_.ql-editor_h3]:text-xl [&_.ql-editor_h3]:font-semibold [&_.ql-editor_h3]:text-neutral-900 [&_.ql-editor_h3]:mt-8 [&_.ql-editor_h3]:mb-4 [&_.ql-editor_a]:text-blue-600 [&_.ql-editor_a]:font-medium [&_.ql-editor_a]:no-underline [&_.ql-editor_a]:transition-colors hover:[&_.ql-editor_a]:underline hover:[&_.ql-editor_a]:text-blue-700"
+                className="bg-white rounded-xl border border-gray-200 [&_.ql-toolbar]:sticky [&_.ql-toolbar]:top-[68px] [&_.ql-toolbar]:z-40 [&_.ql-toolbar]:rounded-t-xl [&_.ql-toolbar]:border-gray-300 [&_.ql-toolbar]:bg-gray-50 [&_.ql-container]:rounded-b-xl [&_.ql-container]:border-gray-300 [&_.ql-editor]:min-h-[300px] [&_.ql-editor]:font-sans [&_.ql-editor]:text-[17px] [&_.ql-editor]:leading-[1.8] [&_.ql-editor]:text-[#5A5A5A] [&_.ql-editor_p]:mb-7 [&_.ql-editor_p:last-child]:mb-0 [&_.ql-editor_h1]:text-3xl [&_.ql-editor_h1]:font-semibold [&_.ql-editor_h1]:text-neutral-900 [&_.ql-editor_h1]:mt-12 [&_.ql-editor_h1]:mb-6 [&_.ql-editor_h2]:text-[22px] [&_.ql-editor_h2]:font-semibold [&_.ql-editor_h2]:text-neutral-900 [&_.ql-editor_h2]:mt-10 [&_.ql-editor_h2]:mb-4 [&_.ql-editor_h3]:text-xl [&_.ql-editor_h3]:font-semibold [&_.ql-editor_h3]:text-neutral-900 [&_.ql-editor_h3]:mt-8 [&_.ql-editor_h3]:mb-4 [&_.ql-editor_a]:text-blue-600 [&_.ql-editor_a]:font-medium [&_.ql-editor_a]:no-underline [&_.ql-editor_a]:transition-colors hover:[&_.ql-editor_a]:underline hover:[&_.ql-editor_a]:text-blue-700 [&_.ql-editor]:break-words [&_.ql-editor]:whitespace-pre-wrap [&_.ql-editor]:overflow-hidden [&_.ql-toolbar]:flex [&_.ql-toolbar]:flex-wrap"
                 placeholder="Write your comprehensive article here..."
               />
               <input

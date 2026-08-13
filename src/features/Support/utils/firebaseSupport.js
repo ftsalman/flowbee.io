@@ -40,3 +40,38 @@ export const getSupportArticles = async () => {
     return [];
   }
 };
+
+/**
+ * Updates an existing support article in Firestore
+ * @param {string} id - The ID of the article to update
+ * @param {Object} articleData - The new article data
+ */
+export const updateSupportArticle = async (id, articleData) => {
+  try {
+    const docRef = doc(db, COLLECTION_NAME, id);
+    const updatedArticle = {
+      ...articleData,
+      updatedAt: new Date().toISOString(),
+    };
+    await setDoc(docRef, updatedArticle, { merge: true });
+    return updatedArticle;
+  } catch (error) {
+    console.error("Error updating support article:", error);
+    throw error;
+  }
+};
+
+/**
+ * Deletes a support article from Firestore
+ * @param {string} id - The ID of the article to delete
+ */
+export const deleteSupportArticle = async (id) => {
+  try {
+    const docRef = doc(db, COLLECTION_NAME, id);
+    const { deleteDoc } = await import("firebase/firestore");
+    await deleteDoc(docRef);
+  } catch (error) {
+    console.error("Error deleting support article:", error);
+    throw error;
+  }
+};

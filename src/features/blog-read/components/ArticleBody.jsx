@@ -27,7 +27,7 @@ export const ArticleBody = ({ displayContent }) => {
     <div className="article-prose-content prose max-w-none text-[#5A5A5A] text-[17px] leading-[1.8] font-normal break-words overflow-hidden [&_p]:mb-7 last:[&_p]:mb-0 [&_h1]:text-3xl [&_h1]:font-semibold [&_h1]:text-neutral-900 [&_h1]:mt-12 [&_h1]:mb-6 [&_h2]:scroll-mt-24 [&_h2]:text-[22px] [&_h2]:font-semibold [&_h2]:text-neutral-900 [&_h2]:mt-10 [&_h2]:mb-4 [&_h3]:scroll-mt-24 [&_h3]:text-xl [&_h3]:font-semibold [&_h3]:text-neutral-900 [&_h3]:mt-8 [&_h3]:mb-4 [&_a]:text-blue-600 [&_a]:font-medium [&_a]:no-underline [&_a]:transition-colors hover:[&_a]:underline hover:[&_a]:text-blue-700">
       {isHtml ? (
         <div
-          className="whitespace-pre-wrap [&_iframe]:aspect-video [&_iframe]:w-full [&_iframe]:rounded-xl [&_video]:w-full [&_video]:rounded-xl [&_ul]:list-disc [&_ul]:ml-6 [&_ul]:mb-4 [&_ol]:list-decimal [&_ol]:ml-6 [&_ol]:mb-4 [&_li]:pl-1 [&_li]:mb-1.5 [&_.ql-align-center]:text-center [&_.ql-align-right]:text-right [&_.ql-align-justify]:!text-left"
+          className="whitespace-pre-wrap [&_iframe]:aspect-video [&_iframe]:w-full [&_iframe]:rounded-xl [&_video]:w-full [&_video]:rounded-xl [&_ul]:list-disc [&_ul]:ml-6 [&_ul]:mb-4 [&_ol]:list-decimal [&_ol]:ml-6 [&_ol]:mb-4 [&_li]:pl-1 [&_li]:mb-1.5 [&_.ql-align-center]:text-center [&_.ql-align-right]:text-right"
           dangerouslySetInnerHTML={{ __html: processedContent }}
         />
       ) : (

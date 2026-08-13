@@ -32,7 +32,17 @@ class UploadedVideoBlot extends BlockEmbed {
 }
 Quill.register(UploadedVideoBlot);
 
-export const CreateSupportForm = () => {
+export const CreateSupportForm = ({
+
+}) => {
+    const [title, setTitle] = useState("");
+    const [category, setCategory] = useState("ai-agent");
+    const [author, setAuthor] = useState("");
+    const [authorImage, setAuthorImage] = useState("");
+    const [readTime, setReadTime] = useState("");
+    const [image, setImage] = useState("");
+    const [excerpt, setExcerpt] = useState("");
+   const [content, setContent] = useState("");
   const { showToast } = useToast();
   const fileInputRef = useRef(null);
   const creatorFileInputRef = useRef(null);
@@ -57,6 +67,7 @@ export const CreateSupportForm = () => {
           [{ header: [1, 2, 3, false] }],
           ["bold", "italic", "underline", "strike", "blockquote"],
           [{ list: "ordered" }, { list: "bullet" }, { indent: "-1" }, { indent: "+1" }],
+          [{ align: [] }],
           ["link", "image", "video"],
           ["clean"],
         ],

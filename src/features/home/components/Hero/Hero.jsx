@@ -1,3 +1,4 @@
+
 import React from "react";
 import { motion } from "framer-motion";
 import { FaWhatsapp } from "react-icons/fa";
@@ -18,6 +19,7 @@ export const Hero = ({ onVideoOpen }) => {
 
   return (
     <>
+
       <div className="min-h-[85vh] flex items-center justify-center bg-white relative overflow-hidden px-4 pt-0 lg:pt-0 p-5">
         <div className="max-w-6xl mx-auto w-full flex flex-col lg:flex-row items-center gap-12 relative z-10 py-12 lg:py-0">
           <motion.div

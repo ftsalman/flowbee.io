@@ -4,7 +4,6 @@ import { CATEGORIES, MODULES_DATA } from "../constants/constants";
 import { getSupportArticles } from "../utils/firebaseSupport";
 
 // Components
-import { Navbar } from "../components/Navbar";
 import { HeroSection } from "../components/HeroSection";
 import { CategoryGrid } from "../components/CategoryGrid";
 import { QuickLinks } from "../components/QuickLinks";
@@ -22,8 +21,26 @@ export const SupportPage = () => {
 
   useEffect(() => {
     const fetchArticles = async () => {
-      const articles = await getSupportArticles();
-      setDynamicArticles(articles);
+      let firebaseArticles = [];
+      let indexedArticles = [];
+      
+      try {
+        const { getStoredSupportArticles } = await import("../utils/supportStorage");
+        [firebaseArticles, indexedArticles] = await Promise.all([
+          getSupportArticles(),
+          getStoredSupportArticles(),
+        ]);
+      } catch (e) {
+        console.error("Error loading articles from multiple sources:", e);
+      }
+
+      // Combine and deduplicate
+      const combinedArticles = [...firebaseArticles, ...indexedArticles].filter(
+        (article, index, articles) =>
+          articles.findIndex((candidate) => String(candidate.id) === String(article.id)) === index
+      );
+      
+      setDynamicArticles(combinedArticles);
     };
     fetchArticles();
   }, []);
@@ -35,11 +52,16 @@ export const SupportPage = () => {
         merged[article.categoryId] = [];
       }
       merged[article.categoryId].push({
+        id: article.id,
         title: article.title,
         desc: article.desc,
         content: article.content,
         image: article.image,
-        isDynamic: true
+        creatorName: article.creatorName,
+        creatorImage: article.creatorImage,
+        createdDate: article.createdDate,
+        isDynamic: true,
+        section: article.section,
       });
     });
     return merged;
@@ -133,8 +155,6 @@ export const SupportPage = () => {
             />
           )}
         </div>
-
-        <Footer />
       </div>
     </HelmetProvider>
   );

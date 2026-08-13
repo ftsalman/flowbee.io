@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { FiChevronRight, FiSearch, FiFolder, FiFileText, FiLink, FiUser, FiThumbsUp, FiThumbsDown } from "react-icons/fi";
+import { useNavigate } from "react-router-dom";
 
 export const ArticleView = ({ activeCategory, activeModule, setActiveModule, CATEGORIES, MODULES_DATA, setActiveCategory }) => {
   const [sidebarSearch, setSidebarSearch] = useState("");
   const [activeToc, setActiveToc] = useState("The Problem Businesses Face");
+  const navigate = useNavigate();
 
   const handleCategoryClick = (cat) => {
     setActiveCategory(cat);
@@ -124,6 +126,31 @@ export const ArticleView = ({ activeCategory, activeModule, setActiveModule, CAT
               </span>
             </div>
           </div>
+          
+          {activeModule?.isDynamic && (
+            <div className="flex items-center gap-3 mt-4 sm:mt-0">
+              <button 
+                onClick={() => {
+                  navigate('/create-support', { state: { editArticle: activeModule } });
+                }}
+                className="px-4 py-2 text-sm font-semibold text-blue-600 bg-blue-50 hover:bg-blue-100 rounded-lg transition-colors"
+              >
+                Edit Article
+              </button>
+              <button 
+                onClick={async () => {
+                  if (window.confirm("Are you sure you want to delete this article?")) {
+                    const { deleteSupportArticle } = await import('../utils/firebaseSupport');
+                    await deleteSupportArticle(activeModule.id);
+                    window.location.reload();
+                  }
+                }}
+                className="px-4 py-2 text-sm font-semibold text-red-600 bg-red-50 hover:bg-red-100 rounded-lg transition-colors"
+              >
+                Delete
+              </button>
+            </div>
+          )}
         </div>
 
         <motion.article 
