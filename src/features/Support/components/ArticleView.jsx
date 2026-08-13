@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { FiChevronRight, FiSearch, FiFolder, FiFileText, FiLink, FiUser, FiThumbsUp, FiThumbsDown } from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
+import "react-quill-new/dist/quill.snow.css";
 
 export const ArticleView = ({ activeCategory, activeModule, setActiveModule, CATEGORIES, MODULES_DATA, setActiveCategory }) => {
   const [sidebarSearch, setSidebarSearch] = useState("");
@@ -93,10 +94,11 @@ export const ArticleView = ({ activeCategory, activeModule, setActiveModule, CAT
       </aside>
 
       {/* Main Content Area */}
-      <main className="flex-1 max-w-3xl lg:px-8 h-full overflow-y-auto custom-scroll pb-20">
-        {/* Breadcrumbs */}
-        <div className="flex items-center gap-2 text-[13px] text-gray-500 mb-8 overflow-hidden whitespace-nowrap text-ellipsis">
-          <span onClick={() => window.location.href = '/'} className="hover:text-gray-900 cursor-pointer">Home</span>
+      <main className="flex-1 lg:px-8 h-full overflow-y-auto custom-scroll pb-20 flex justify-center">
+        <div className="w-full max-w-[760px]">
+          {/* Breadcrumbs */}
+          <div className="flex items-center gap-2 text-[13px] text-gray-500 mb-8 overflow-hidden whitespace-nowrap text-ellipsis">
+            <span onClick={() => window.location.href = '/'} className="hover:text-gray-900 cursor-pointer">Home</span>
           <span>/</span>
           <span onClick={() => { setActiveCategory(null); setActiveModule(null); }} className="hover:text-gray-900 cursor-pointer">Docs</span>
           <span>/</span>
@@ -119,10 +121,24 @@ export const ArticleView = ({ activeCategory, activeModule, setActiveModule, CAT
               <span className="text-[15px] font-medium text-gray-900 leading-tight">
                 {activeModule?.creatorName || "Flowbee Support Team"}
               </span>
-              <span className="text-[13px] text-gray-500">
-                {activeModule?.createdDate 
-                  ? new Date(activeModule.createdDate).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) 
-                  : "Recently updated"}
+              <span className="text-[13px] text-gray-500 flex items-center gap-2">
+                <span>
+                  {activeModule?.createdDate 
+                    ? new Date(activeModule.createdDate).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) 
+                    : "Recently updated"}
+                </span>
+                {activeModule?.isDynamic && activeModule?.content && (
+                  <>
+                    <span>•</span>
+                    <span>{activeModule.content.replace(/<[^>]*>?/gm, '').split(/\s+/).filter(Boolean).length} words</span>
+                    {activeModule?.readTime && (
+                      <>
+                        <span>•</span>
+                        <span>{activeModule.readTime}</span>
+                      </>
+                    )}
+                  </>
+                )}
               </span>
             </div>
           </div>
@@ -140,16 +156,13 @@ export const ArticleView = ({ activeCategory, activeModule, setActiveModule, CAT
           {activeModule?.image && (
             <div className="mb-8 rounded-2xl overflow-hidden border border-gray-200 bg-white shadow-sm">
               <img src={activeModule.image} alt={activeModule.title} className="w-full h-auto object-cover max-h-[500px]" />
-              <div className="p-4 text-center text-gray-500 italic text-sm border-t border-gray-100 bg-gray-50/50">
-                Some Business Images
-              </div>
             </div>
           )}
           
-          <div className="prose prose-lg prose-gray max-w-none prose-headings:font-bold prose-headings:tracking-tight prose-a:text-blue-600 hover:prose-a:text-blue-500 whitespace-pre-wrap">
+          <div className="max-w-none">
             {activeModule?.isDynamic ? (
                <div 
-                 className="text-gray-700 leading-relaxed ql-editor"
+                 className="ql-editor !px-0 font-sans text-[17px] leading-[1.8] text-[#5A5A5A] [&_p]:!mb-4 [&_p:last-child]:!mb-0 [&_h1]:text-3xl [&_h1]:font-semibold [&_h1]:text-neutral-900 [&_h1]:!mt-8 [&_h1]:!mb-4 [&_h2]:text-[22px] [&_h2]:font-semibold [&_h2]:text-neutral-900 [&_h2]:!mt-6 [&_h2]:!mb-3 [&_h3]:text-xl [&_h3]:font-semibold [&_h3]:text-neutral-900 [&_h3]:!mt-5 [&_h3]:!mb-2 [&_a]:text-blue-600 [&_a]:font-medium [&_a]:no-underline [&_a]:transition-colors hover:[&_a]:underline hover:[&_a]:text-blue-700 break-words whitespace-pre-wrap overflow-hidden"
                  dangerouslySetInnerHTML={{ __html: activeModule.content }} 
                />
             ) : (
@@ -194,6 +207,7 @@ export const ArticleView = ({ activeCategory, activeModule, setActiveModule, CAT
             )}
           </div>
         </motion.article>
+        </div>
       </main>
 
       {/* Right Sidebar (Table of Contents & Share) */}

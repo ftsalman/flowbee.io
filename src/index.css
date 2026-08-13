@@ -68,3 +68,39 @@ body {
 .ql-editor .ql-align-justify, .prose .ql-align-justify {
   text-align: justify !important;
 }
+
+/* Restore lists inside Quill Editor overridden by Tailwind preflight */
+.ql-editor ul {
+  list-style-type: disc !important;
+  padding-left: 2.5rem !important;
+  margin-bottom: 1.5rem !important;
+  margin-top: 0.5rem !important;
+}
+.ql-editor ol {
+  list-style-type: decimal !important;
+  padding-left: 2.5rem !important;
+  margin-bottom: 1.5rem !important;
+  margin-top: 0.5rem !important;
+}
+.ql-editor li {
+  display: list-item !important;
+  list-style-type: inherit !important;
+  margin-bottom: 0.375rem !important;
+  padding-left: 0.25rem !important;
+  line-height: 1.8 !important;
+}
+/* Hide Quill's custom counter/bullets since we are enforcing standard browser list-style */
+.ql-editor li::before {
+  display: none !important;
+}
+
+/* Center images inside the editor and viewer automatically */
+.ql-editor img {
+  display: block !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  border-radius: 0.5rem !important; /* rounded-lg */
+  margin-top: 2rem !important;
+  margin-bottom: 2rem !important;
+  box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1) !important;
+}
