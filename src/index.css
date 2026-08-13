@@ -43,3 +43,28 @@ body {
   flex-direction: column;
   box-sizing: border-box;
 }
+
+/* Fix ReactQuill toolbar dropdowns (like alignment) broken by Tailwind SVG reset */
+.ql-toolbar .ql-picker-label {
+  display: flex !important;
+  align-items: center;
+}
+.ql-toolbar .ql-picker-label svg {
+  display: inline-block !important;
+  vertical-align: middle;
+}
+.ql-toolbar .ql-picker-item {
+  display: flex !important;
+  align-items: center;
+}
+
+/* Ensure Quill alignment classes work correctly inside tailwind typography/base */
+.ql-editor .ql-align-center, .prose .ql-align-center {
+  text-align: center !important;
+}
+.ql-editor .ql-align-right, .prose .ql-align-right {
+  text-align: right !important;
+}
+.ql-editor .ql-align-justify, .prose .ql-align-justify {
+  text-align: justify !important;
+}
