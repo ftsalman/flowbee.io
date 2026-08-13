@@ -5,8 +5,9 @@ import { SupportEditorForm } from '../components/SupportEditorForm';
 import { SupportFullPreview } from '../components/SupportFullPreview';
 import { SupportCardPreview } from '../components/SupportCardPreview';
 import { CATEGORIES } from '../../Support/constants/constants';
-import { addSupportArticle, updateSupportArticle, getSupportArticles } from '../../Support/utils/firebaseSupport';
+import { addSupportArticle, updateSupportArticle, getSupportArticles, deleteSupportArticle } from '../../Support/utils/firebaseSupport';
 import { getStoredSupportArticles, saveStoredSupportArticles } from '../../Support/utils/supportStorage';
+import { PublishedSupportGrid } from '../components/PublishedSupportGrid';
 import { useToast } from '../../../hooks/useToast';
 import { Tabs } from '../../../../lib/turtle-ui/components/tabs/Tabs';
 
@@ -35,8 +36,31 @@ export const CreateSupportPage = () => {
   const [faqs, setFaqs] = useState(editArticle?.faqs || []);
   const [isPublishing, setIsPublishing] = useState(false);
   const [editingId, setEditingId] = useState(editArticle?.id || null);
+  const [publishedArticles, setPublishedArticles] = useState([]);
 
   const [activeTab, setActiveTab] = useState(TABS[0]);
+
+  useEffect(() => {
+    const loadArticles = async () => {
+      try {
+        const [firebaseArticles, indexedArticles] = await Promise.all([
+          getSupportArticles(),
+          getStoredSupportArticles()
+        ]);
+        
+        const combinedArticles = [...firebaseArticles, ...indexedArticles].filter(
+          (article, index, articles) => 
+            articles.findIndex(a => String(a.id) === String(article.id)) === index
+        );
+        
+        setPublishedArticles(combinedArticles);
+        await saveStoredSupportArticles(combinedArticles);
+      } catch (err) {
+        console.error("Unable to load support articles:", err);
+      }
+    };
+    loadArticles();
+  }, []);
 
   const categoryLabel = CATEGORIES.find(c => c.id === category)?.label || "";
 
@@ -95,8 +119,16 @@ export const CreateSupportPage = () => {
         indexedArticles.push(articleData);
       }
       await saveStoredSupportArticles(indexedArticles);
+      setPublishedArticles(indexedArticles);
 
-      navigate('/support');
+      // Reset form
+      setEditingId(null);
+      setTitle("");
+      setExcerpt("");
+      setContent("");
+      setImage("");
+      setFaqs([]);
+      window.scrollTo({ top: 0, behavior: "smooth" });
     } catch (err) {
       showToast({ variant: 'error', descp: 'Failed to publish article.' });
     } finally {
@@ -106,6 +138,43 @@ export const CreateSupportPage = () => {
 
   const handleCancel = () => {
     navigate('/support');
+  };
+
+  const handleCancelEdit = () => {
+    setEditingId(null);
+    setTitle("");
+    setExcerpt("");
+    setContent("");
+    setImage("");
+    setFaqs([]);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
+  const handleEditArticle = (article) => {
+    setTitle(article.title || "");
+    setCategory(article.categoryId || CATEGORIES[0]?.id || "");
+    setAuthor(article.creatorName || "");
+    setAuthorImage(article.creatorImage || "");
+    setReadTime(article.readTime || "");
+    setImage(article.image || "");
+    setExcerpt(article.desc || "");
+    setContent(article.content || "");
+    setFaqs(article.faqs || []);
+    setEditingId(article.id);
+    setActiveTab(TABS[0]);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
+  const handleDeleteArticle = async (id) => {
+    const updated = publishedArticles.filter(a => a.id !== id);
+    try {
+      await deleteSupportArticle(id);
+      await saveStoredSupportArticles(updated);
+      setPublishedArticles(updated);
+      showToast({ variant: 'success', descp: 'Article deleted successfully.' });
+    } catch (err) {
+      showToast({ variant: 'error', descp: 'Failed to delete article.' });
+    }
   };
 
   return (
@@ -159,7 +228,7 @@ export const CreateSupportPage = () => {
           editingId={editingId}
           isPublishing={isPublishing}
           handlePublish={handlePublish}
-          handleCancel={handleCancel}
+          handleCancel={handleCancelEdit}
           categoryLabel={categoryLabel}
         />           
       ) : activeTab.id === "preview-card" ? (
@@ -173,6 +242,13 @@ export const CreateSupportPage = () => {
           setActiveTab={setActiveTab} 
         />
       )}
+
+      {/* Published Support Articles Grid */}
+      <PublishedSupportGrid
+        publishedArticles={publishedArticles}
+        handleEditArticle={handleEditArticle}
+        handleDeleteArticle={handleDeleteArticle}
+      />
     </div>
   );
 };
