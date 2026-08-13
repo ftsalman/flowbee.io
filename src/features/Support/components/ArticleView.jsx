@@ -22,7 +22,7 @@ export const ArticleView = ({ activeCategory, activeModule, setActiveModule, CAT
   };
 
   return (
-    <div className="max-w-[1440px] mx-auto px-4 md:px-8 py-6 h-[calc(100vh-80px)] overflow-hidden flex flex-col lg:flex-row gap-8">
+    <div className="max-w-[1440px] mx-auto px-4 md:px-8 py-6 lg:h-[calc(100vh-80px)] lg:overflow-hidden flex flex-col lg:flex-row gap-8">
       
       <style>{`
         .custom-scroll::-webkit-scrollbar { width: 4px; }
@@ -32,7 +32,7 @@ export const ArticleView = ({ activeCategory, activeModule, setActiveModule, CAT
       `}</style>
       
       {/* Left Sidebar Navigation */}
-      <aside className="w-full lg:w-[280px] shrink-0 border-r border-gray-100 pr-4 h-full overflow-y-auto custom-scroll">
+      <aside className="w-full lg:w-[280px] shrink-0 lg:border-r border-gray-100 lg:pr-4 lg:h-full lg:overflow-y-auto custom-scroll order-2 lg:order-1">
         <div className="sticky top-0 pb-10">
           {/* Search Box */}
           <div className="relative mb-8">
@@ -94,7 +94,7 @@ export const ArticleView = ({ activeCategory, activeModule, setActiveModule, CAT
       </aside>
 
       {/* Main Content Area */}
-      <main className="flex-1 lg:px-8 h-full overflow-y-auto custom-scroll pb-20 flex justify-center">
+      <main className="flex-1 lg:px-8 lg:h-full lg:overflow-y-auto custom-scroll pb-10 lg:pb-20 flex justify-center order-1 lg:order-2">
         <div className="w-full max-w-[760px]">
           {/* Breadcrumbs */}
           <div className="flex items-center gap-2 text-[13px] text-gray-500 mb-8 overflow-hidden whitespace-nowrap text-ellipsis">
@@ -211,7 +211,7 @@ export const ArticleView = ({ activeCategory, activeModule, setActiveModule, CAT
       </main>
 
       {/* Right Sidebar (Table of Contents & Share) */}
-      <aside className="w-full lg:w-[260px] shrink-0 lg:pl-6 h-full overflow-y-auto custom-scroll pb-10">
+      <aside className="w-full lg:w-[260px] shrink-0 lg:pl-6 lg:h-full lg:overflow-y-auto custom-scroll pb-10 order-3 hidden xl:block">
         <div className="sticky top-0 space-y-10">
           
           {/* Table of Contents */}
