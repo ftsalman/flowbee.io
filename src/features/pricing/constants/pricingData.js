@@ -7,21 +7,24 @@ export const regions = [
 export const pricingTable = {
   INR: {
     starter: {
-      monthly: 799,
-      yearly: 7670,
-      save: 1918,
+      quarterly: 2997,
+      halfYearly: 5095,
+      yearly: 9590,
+      save: 2398,
       extraUser: 99,
       extraBranch: 449,
     },
     growth: {
-      monthly: 1999,
+      quarterly: 5997,
+      halfYearly: 10195,
       yearly: 19190,
       save: 4798,
       extraUser: 99,
       extraBranch: 449,
     },
     pro: {
-      monthly: 7999,
+      quarterly: 23997,
+      halfYearly: 40795,
       yearly: 76790,
       save: 19198,
       extraUser: 99,
@@ -31,6 +34,7 @@ export const pricingTable = {
   AED: {
     starter: {
       monthly: 249,
+      quarterly: 747,
       yearly: 2390,
       save: 598,
       extraUser: 49,
@@ -38,6 +42,7 @@ export const pricingTable = {
     },
     growth: {
       monthly: 599,
+      quarterly: 1797,
       yearly: 5750,
       save: 1438,
       extraUser: 49,
@@ -45,6 +50,7 @@ export const pricingTable = {
     },
     pro: {
       monthly: 1599,
+      quarterly: 4797,
       yearly: 15350,
       save: 3838,
       extraUser: 49,

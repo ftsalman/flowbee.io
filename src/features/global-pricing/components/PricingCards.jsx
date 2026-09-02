@@ -9,12 +9,18 @@ export const PricingCards = ({ selectedRegion, billingCycle }) => {
     const baseData = isUSD ? pricingTable.AED : pricingTable[selectedRegion.code];
     const rate = isUSD ? 0.27 : 1; 
     const data = baseData[plan];
+    
+    // For starter and growth, minimum is 3 months
+    const isQuarterlyMinimum = plan === 'starter' || plan === 'growth';
+    const monthlyVal = isQuarterlyMinimum ? data.monthly * 3 : data.monthly;
+
     return {
-      monthly: (data.monthly * rate).toFixed(isUSD ? 2 : 0),
+      monthly: (monthlyVal * rate).toFixed(isUSD ? 2 : 0),
       yearly: (data.yearly * rate).toFixed(isUSD ? 2 : 0),
       save: (data.save * rate).toFixed(isUSD ? 2 : 0),
       extraUser: (data.extraUser * rate).toFixed(isUSD ? 2 : 0),
-      extraBranch: (data.extraBranch * rate).toFixed(isUSD ? 2 : 0)
+      extraBranch: (data.extraBranch * rate).toFixed(isUSD ? 2 : 0),
+      isQuarterlyMinimum
     };
   };
 
@@ -24,6 +30,9 @@ export const PricingCards = ({ selectedRegion, billingCycle }) => {
         const data = getPriceData(plan);
         const isGrowth = plan === 'growth';
         const displayPrice = billingCycle === 'monthly' ? data.monthly : data.yearly;
+        const cycleSuffix = billingCycle === 'monthly' 
+          ? (data.isQuarterlyMinimum ? 'quarter' : 'mo') 
+          : 'yr';
 
         return (
           <motion.div 
@@ -42,7 +51,7 @@ export const PricingCards = ({ selectedRegion, billingCycle }) => {
               </h3>
               <div className="flex items-baseline gap-1">
                 <span className="text-3xl lg:text-5xl font-black">{selectedRegion.symbol}{displayPrice}</span>
-                <span className="text-gray-400 font-bold text-xs lg:text-sm">/{billingCycle === 'monthly' ? 'mo' : 'yr'}</span>
+                <span className="text-gray-400 font-bold text-xs lg:text-sm">/{cycleSuffix}</span>
               </div>
               {billingCycle === 'yearly' && (
                 <p className="mt-4 text-[9px] lg:text-[10px] font-black text-[#25D366] uppercase tracking-widest bg-[#25D366]/10 inline-block px-3 py-1 rounded-lg">🎁 Save {selectedRegion.symbol}{data.save} Yearly</p>

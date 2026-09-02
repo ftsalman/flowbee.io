@@ -4,7 +4,9 @@ export const getPriceData = (plan, currency, pricingTable) => {
   const rate = isUSD ? 0.27 : 1;
   const data = baseData[plan];
   return {
-    monthly: (data.monthly * rate).toFixed(isUSD ? 2 : 0),
+    monthly: data.monthly ? (data.monthly * rate).toFixed(isUSD ? 2 : 0) : undefined,
+    quarterly: data.quarterly ? (data.quarterly * rate).toFixed(isUSD ? 2 : 0) : undefined,
+    halfYearly: data.halfYearly ? (data.halfYearly * rate).toFixed(isUSD ? 2 : 0) : undefined,
     yearly: (data.yearly * rate).toFixed(isUSD ? 2 : 0),
     save: (data.save * rate).toFixed(isUSD ? 2 : 0),
     extraUser: (data.extraUser * rate).toFixed(isUSD ? 2 : 0),

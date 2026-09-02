@@ -17,9 +17,14 @@ import { getPriceData } from "../utils/pricingUtils";
 export const PricingCardItem = ({ plan, billingCycle, currency }) => {
   const data = getPriceData(plan, currency, pricingTable);
   const isGrowth = plan === "growth";
-  const displayPrice =
-    billingCycle === "monthly" ? data.monthly : data.yearly;
+  const displayPrice = data[billingCycle] || data.yearly;
   const features = getPlanFeatures(plan);
+  
+  let suffix = "";
+  if (billingCycle === "monthly") suffix = "/mo";
+  else if (billingCycle === "quarterly") suffix = "/3 mo";
+  else if (billingCycle === "halfYearly") suffix = "/6 mo";
+  else if (billingCycle === "yearly") suffix = "/yr";
 
   return (
     <motion.div whileHover={{ y: -10 }} className="h-full flex">
@@ -56,7 +61,7 @@ export const PricingCardItem = ({ plan, billingCycle, currency }) => {
               {displayPrice}
             </span>
             <span className="text-gray-400 font-bold text-xs lg:text-sm">
-              /{billingCycle === "monthly" ? "mo" : "yr"}
+              {suffix}
             </span>
           </div>
           {billingCycle === "yearly" && (

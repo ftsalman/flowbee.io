@@ -11,12 +11,18 @@ import {
 } from "../components";
 
 export const PricingPage = () => {
-  const [billingCycle, setBillingCycle] = useState("monthly");
+  const [billingCycle, setBillingCycle] = useState("quarterly");
   const [currency, setCurrency] = useState(regions[0]);
 
   useEffect(() => {
     const userLocale = Intl.DateTimeFormat().resolvedOptions().timeZone;
-    setCurrency(detectUserRegion(userLocale, regions));
+    const detectedCurrency = detectUserRegion(userLocale, regions);
+    setCurrency(detectedCurrency);
+    if (detectedCurrency.code !== "INR" && billingCycle === "halfYearly") {
+      setBillingCycle("quarterly");
+    } else if (detectedCurrency.code === "INR" && billingCycle === "monthly") {
+      setBillingCycle("quarterly");
+    }
   }, []);
 
   return (
@@ -25,6 +31,7 @@ export const PricingPage = () => {
       <PricingHeader
         billingCycle={billingCycle}
         setBillingCycle={setBillingCycle}
+        currency={currency}
       />
       <PricingCardsSection
         billingCycle={billingCycle}

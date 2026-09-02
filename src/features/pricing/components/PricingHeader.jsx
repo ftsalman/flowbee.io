@@ -2,7 +2,20 @@ import React from "react";
 import { motion } from "framer-motion";
 import { fadeUp } from "../utils/pricingUtils";
 
-export const PricingHeader = ({ billingCycle, setBillingCycle }) => {
+export const PricingHeader = ({ billingCycle, setBillingCycle, currency }) => {
+  const isIndia = currency.code === "INR";
+  const options = isIndia
+    ? [
+        { id: "quarterly", label: "Quarterly" },
+        { id: "halfYearly", label: "Half Yearly", badge: "15% OFF" },
+        { id: "yearly", label: "Yearly", badge: "20% OFF" },
+      ]
+    : [
+        { id: "monthly", label: "Monthly" },
+        { id: "quarterly", label: "Quarterly" },
+        { id: "yearly", label: "Yearly", badge: "20% OFF" },
+      ];
+
   return (
     <section className="text-center px-6 py-12 lg:py-20 bg-[#fafafa]">
       <motion.div initial="hidden" animate="visible" variants={fadeUp}>
@@ -11,35 +24,30 @@ export const PricingHeader = ({ billingCycle, setBillingCycle }) => {
         </h1>
 
         <div className="flex flex-col items-center gap-6">
-          <div className="flex items-center gap-4 lg:gap-6">
-            <span
-              className={`text-[10px] lg:text-xs font-black uppercase tracking-widest ${billingCycle === "monthly" ? "text-yellow-400" : "text-gray-300"}`}
-            >
-              Monthly
-            </span>
-            <button
-              onClick={() =>
-                setBillingCycle(
-                  billingCycle === "monthly" ? "yearly" : "monthly",
-                )
-              }
-              className="w-12 lg:w-14 h-7 lg:h-7 bg-gray-200 rounded-full p-1 flex items-center cursor-pointer"
-            >
-              <motion.div
-                animate={{ x: billingCycle === "monthly" ? 0 : 28 }}
-                className="w-5 h-5 lg:w-6 lg:h-6 bg-white rounded-full shadow-md"
-              />
-            </button>
-            <div className="text-left flex items-center gap-2">
-              <span
-                className={`text-[10px] lg:text-xs font-black uppercase tracking-widest ${billingCycle === "yearly" ? "text-yellow-400" : "text-gray-300"}`}
+          <div className="flex bg-gray-200 p-1 rounded-full shadow-inner relative overflow-x-auto max-w-full">
+            {options.map((opt) => (
+              <button
+                key={opt.id}
+                onClick={() => setBillingCycle(opt.id)}
+                className={`relative px-3 py-2 lg:px-6 lg:py-2 rounded-full text-[10px] lg:text-sm font-black uppercase tracking-widest transition-colors z-10 whitespace-nowrap flex items-center gap-1 lg:gap-2 ${
+                  billingCycle === opt.id ? "text-[#111]" : "text-gray-500 hover:text-gray-700"
+                }`}
               >
-                Yearly
-              </span>
-              <span className="block text-[8px] lg:text-[9px] font-black text-[#25D366] animate-pulse">
-                🎉 20% OFF
-              </span>
-            </div>
+                {billingCycle === opt.id && (
+                  <motion.div
+                    layoutId="billingTab"
+                    className="absolute inset-0 bg-white rounded-full shadow-md -z-10"
+                    transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
+                  />
+                )}
+                <span>{opt.label}</span>
+                {opt.badge && (
+                  <span className="text-[8px] lg:text-[9px] text-[#25D366] animate-pulse">
+                    🎉 {opt.badge}
+                  </span>
+                )}
+              </button>
+            ))}
           </div>
         </div>
       </motion.div>
