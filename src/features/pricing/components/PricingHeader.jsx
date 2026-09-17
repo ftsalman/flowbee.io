@@ -12,7 +12,7 @@ export const PricingHeader = ({ billingCycle, setBillingCycle, currency }) => {
       ]
     : [
         { id: "monthly", label: "Monthly" },
-        { id: "quarterly", label: "Quarterly" },
+        { id: "halfYearly", label: "Half Yearly", badge: "15% OFF" },
         { id: "yearly", label: "Yearly", badge: "20% OFF" },
       ];
 

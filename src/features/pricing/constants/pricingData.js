@@ -35,6 +35,7 @@ export const pricingTable = {
     starter: {
       monthly: 249,
       quarterly: 747,
+      halfYearly: 1270,
       yearly: 2390,
       save: 598,
       extraUser: 49,
@@ -43,6 +44,7 @@ export const pricingTable = {
     growth: {
       monthly: 599,
       quarterly: 1797,
+      halfYearly: 3055,
       yearly: 5750,
       save: 1438,
       extraUser: 49,
@@ -51,6 +53,7 @@ export const pricingTable = {
     pro: {
       monthly: 1599,
       quarterly: 4797,
+      halfYearly: 8155,
       yearly: 15350,
       save: 3838,
       extraUser: 49,

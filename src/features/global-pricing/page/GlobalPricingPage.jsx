@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
 
 // Components
@@ -13,8 +13,14 @@ import { FinalCTA } from '../components/FinalCTA';
 import { structuredData } from '../constants/pricingData';
 
 export const GlobalPricingPage = () => {
-  const [billingCycle, setBillingCycle] = useState('monthly');
+  const [billingCycle, setBillingCycle] = useState('halfYearly');
   const [selectedRegion, setSelectedRegion] = useState({ code: 'USD', symbol: '$', label: 'Global (USD)' });
+
+  useEffect(() => {
+    if (selectedRegion.code === "INR" && billingCycle === "monthly") {
+      setBillingCycle("halfYearly");
+    }
+  }, [selectedRegion, billingCycle]);
 
   return (
     <HelmetProvider>

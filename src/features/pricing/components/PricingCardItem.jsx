@@ -21,10 +21,24 @@ export const PricingCardItem = ({ plan, billingCycle, currency }) => {
   const features = getPlanFeatures(plan);
   
   let suffix = "";
-  if (billingCycle === "monthly") suffix = "/mo";
-  else if (billingCycle === "quarterly") suffix = "/3 mo";
-  else if (billingCycle === "halfYearly") suffix = "/6 mo";
-  else if (billingCycle === "yearly") suffix = "/yr";
+  let months = 1;
+  if (billingCycle === "monthly") {
+    suffix = "/monthly";
+    months = 1;
+  } else if (billingCycle === "quarterly") {
+    suffix = "/3 mo";
+    months = 3;
+  } else if (billingCycle === "halfYearly") {
+    suffix = "/6 mo";
+    months = 6;
+  } else if (billingCycle === "yearly") {
+    suffix = "/yr";
+    months = 12;
+  }
+
+  let discount = null;
+  if (billingCycle === "halfYearly") discount = "15%";
+  else if (billingCycle === "yearly") discount = "20%";
 
   return (
     <motion.div whileHover={{ y: -10 }} className="h-full flex">
@@ -54,15 +68,28 @@ export const PricingCardItem = ({ plan, billingCycle, currency }) => {
             {plan === "growth" && <FiTarget />}
             {plan === "pro" && <FiBriefcase className="text-purple-500" />}
             {plan}
+            {discount && (
+              <span className="ml-1 text-[10px] font-black text-[#25D366] bg-[#25D366]/10 px-2 py-0.5 rounded-full tracking-widest uppercase">
+                {discount} OFF
+              </span>
+            )}
           </h3>
-          <div className="flex items-baseline gap-1">
-            <span className="text-xl lg:text-4xl font-black">
-              {currency.symbol}
-              {displayPrice}
-            </span>
-            <span className="text-gray-400 font-bold text-xs lg:text-sm">
-              {suffix}
-            </span>
+          <div className="flex flex-col mb-4">
+            <div className="flex items-baseline gap-1">
+              <span className="text-xl lg:text-4xl font-black">
+                {currency.symbol}
+                {displayPrice}
+              </span>
+              <span className="text-gray-400 font-bold text-xs lg:text-sm">
+                {suffix}
+              </span>
+            </div>
+            {months > 1 && (
+              <span className="text-sm font-semibold text-gray-500 mt-1">
+                {currency.symbol}
+                {Math.round(displayPrice / months)} /mo
+              </span>
+            )}
           </div>
           {billingCycle === "yearly" && (
             <Tag

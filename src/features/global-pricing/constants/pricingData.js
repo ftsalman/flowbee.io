@@ -12,18 +12,7 @@ export const regions = [
   { code: 'AED', symbol: 'AED ', label: 'UAE / GCC (AED)' }
 ];
 
-export const pricingTable = {
-  INR: {
-    starter: { monthly: 799, yearly: 7670, save: 1918, extraUser: 99, extraBranch: 449 },
-    growth: { monthly: 1999, yearly: 19190, save: 4798, extraUser: 99, extraBranch: 449 },
-    pro: { monthly: 7999, yearly: 76790, save: 19198, extraUser: 99, extraBranch: 449 }
-  },
-  AED: {
-    starter: { monthly: 249, yearly: 2390, save: 598, extraUser: 49, extraBranch: 149 },
-    growth: { monthly: 599, yearly: 5750, save: 1438, extraUser: 49, extraBranch: 149 },
-    pro: { monthly: 1599, yearly: 15350, save: 3838, extraUser: 49, extraBranch: 149 }
-  }
-};
+export { pricingTable } from "../../pricing/constants/pricingData";
 
 export const featureMatrix = [
   { f: "Standard Users", s: "3", g: "10", p: "100" },

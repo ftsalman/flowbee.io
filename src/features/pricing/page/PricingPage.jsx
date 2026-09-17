@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { regions } from "../constants/pricingData";
 import { detectUserRegion } from "../utils/pricingUtils";
 import {
@@ -10,20 +10,19 @@ import {
   PricingCtaSection,
 } from "../components";
 
-export const PricingPage = () => {
-  const [billingCycle, setBillingCycle] = useState("quarterly");
-  const [currency, setCurrency] = useState(regions[0]);
+// Detect region synchronously so there's no flash on first render
+const getInitialState = () => {
+  const userLocale = Intl.DateTimeFormat().resolvedOptions().timeZone;
+  const detectedCurrency = detectUserRegion(userLocale, regions);
+  // INR users start on Quarterly; all others start on Monthly
+  const defaultCycle = detectedCurrency.code === "INR" ? "quarterly" : "monthly";
+  return { currency: detectedCurrency, billingCycle: defaultCycle };
+};
 
-  useEffect(() => {
-    const userLocale = Intl.DateTimeFormat().resolvedOptions().timeZone;
-    const detectedCurrency = detectUserRegion(userLocale, regions);
-    setCurrency(detectedCurrency);
-    if (detectedCurrency.code !== "INR" && billingCycle === "halfYearly") {
-      setBillingCycle("quarterly");
-    } else if (detectedCurrency.code === "INR" && billingCycle === "monthly") {
-      setBillingCycle("quarterly");
-    }
-  }, []);
+export const PricingPage = () => {
+  const initial = getInitialState();
+  const [billingCycle, setBillingCycle] = useState(initial.billingCycle);
+  const [currency, setCurrency] = useState(initial.currency);
 
   return (
     <div className="w-full bg-white text-[#111] selection:bg-[#25D366]/20 overflow-x-hidden">
