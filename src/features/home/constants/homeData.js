@@ -5,12 +5,19 @@ export const REGISTER_LINK = "https://app.flowbee.io/auth/register";
 export const WHATSAPP_DEMO_LINK = "https://wa.me/917012345678?text=Hi%2C+I+want+a+demo";
 
 // ─────────────────────────────────────────────
-// Client Logos Marquee (1-29)
+// Client Logos Marquee
 // ─────────────────────────────────────────────
-export const CLIENT_LOGOS = Array.from({ length: 29 }, (_, i) => ({
-  id: i + 1,
-  src: `/images/Clients/${i + 1}.png`,
-  alt: `Client ${i + 1}`,
+const CLIENT_IMAGE_IDS = [
+  1, 2, 3, 4, 5, 6, 7, 8, 9, 10,
+  11, 12, 13, 14, 16, 17, 18, 19, 20,
+  21, 22, 23, 25, 26, 27, 28, 29, 30,
+  31, 32, 33, 34,
+];
+
+export const CLIENT_LOGOS = CLIENT_IMAGE_IDS.map((id) => ({
+  id,
+  src: `/images/Clients/${id}.png`,
+  alt: `Client ${id}`,
 }));
 
 // ─────────────────────────────────────────────
